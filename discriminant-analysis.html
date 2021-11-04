@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 9 Discriminant Analysis | Notes on ProbML</title>
+  <meta name="description" content=" 9 Discriminant Analysis | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 9 Discriminant Analysis | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 9 Discriminant Analysis | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="optimization.html"/>
+<link rel="next" href="logistic-regression.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="discriminant-analysis" class="section level1" number="9">
+<h1><span class="header-section-number"> 9</span> Discriminant Analysis</h1>
+<ul>
+<li>Generative Models specify a way to generate features for each class
+<ul>
+<li><span class="math inline">\(p(y = c |x, \theta) \propto p(x | y = c, \theta) \times p(y = c)\)</span></li>
+<li><span class="math inline">\(p(x | y, \theta)\)</span> is the class conditional density</li>
+<li><span class="math inline">\(p(y)\)</span> is the prior over class labels</li>
+</ul></li>
+<li>Discriminative Models estimate the posterior class probability
+<ul>
+<li><span class="math inline">\(p(y | x, \theta)\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Gaussian Discriminant Analysis
+<ul>
+<li>Class Conditional Densities are multivariate Gaussians</li>
+<li><span class="math inline">\(p(x | y=c, \theta) = N(\mu_c, \Sigma_c)\)</span></li>
+<li><span class="math inline">\(\log p(y = c | x, \theta )\)</span> will be quadratic in <span class="math inline">\(\mu_c\)</span>, <span class="math inline">\(\Sigma_c\)</span> (QDA)</li>
+<li>If the covariance matrices are shared across class labels, the decision boundary will become linear in <span class="math inline">\(\mu_c\)</span> (LDA)</li>
+<li>LDA can be refactored to be similar to logistic regression</li>
+<li>Models are fitted via MLE.
+<ul>
+<li><span class="math inline">\(\Sigma_c\)</span> estimates often lead to overfitting</li>
+<li>Tied covariances i.e. LDA solve this problem</li>
+<li>MAP estimation can introduce some regularization</li>
+</ul></li>
+<li>Class assignment is based on nearest centroid based on the estimates of <span class="math inline">\(\mu_c\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Naive Bayes Classifiers
+<ul>
+<li>Work on Naive Bayes Assumption</li>
+<li>Features are conditionally independent given the class label
+<ul>
+<li><span class="math inline">\(p(\mathbf x | y = c) = \prod p(x_d | y = c)\)</span></li>
+</ul></li>
+<li>The assumption is naive since it will rarely hold true</li>
+<li><span class="math inline">\(p(y = c | x, \theta) \propto \pi(y = c) \prod p(x_d | y = c, \theta_{dc})\)</span></li>
+<li>Model has very few parameters and is easy to estimate</li>
+<li>The distribution of <span class="math inline">\(p(x_d | y = c)\)</span> is
+<ul>
+<li>Bernoulli for binary</li>
+<li>Categorical for categorical</li>
+<li>Gaussian for continuous</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Generative Classifiers are better at handing missing data or unlabeled data</li>
+<li>Discriminative Models give more robust estimates for posterior probabilities</li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="optimization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

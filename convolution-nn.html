@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 13 Convolution NN | Notes on ProbML</title>
+  <meta name="description" content=" 13 Convolution NN | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 13 Convolution NN | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 13 Convolution NN | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="feed-forward-nn.html"/>
+<link rel="next" href="recurrent-nn.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="convolution-nn" class="section level1" number="13">
+<h1><span class="header-section-number"> 13</span> Convolution NN</h1>
+<ul>
+<li>MLPs not effective for images
+<ul>
+<li>Different sized inputs</li>
+<li>Translational invariance difficult to achieve</li>
+<li>Weight matrix prohibitive in size</li>
+</ul></li>
+<li>Convolutional Neural Networks
+<ul>
+<li>Replace matrix multiplication with convolution operator</li>
+<li>Divide image into overlapping 2d patches</li>
+<li>Perform template matching based on filters with learned parameters</li>
+<li>Number of parameters significantly reduced</li>
+<li>Translation invariance easy to achieve</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Convolution Operators
+<ul>
+<li>Convolution between two functions
+<ul>
+<li><span class="math inline">\([f \star g](z) = \int f(u) g(z-u) du\)</span></li>
+</ul></li>
+<li>Similar to cross-correlation operator
+<ul>
+<li><span class="math inline">\([w \star x](i) = \sum_u^{L-1} w_ux_{i+u}\)</span></li>
+</ul></li>
+<li>Convolution in 2D
+<ul>
+<li><span class="math inline">\([W \star X](i,j) = \sum_{u=0}^{H-1}\sum_{v=0}^{W-1} w_{u,v}x_{i+u,j+v}\)</span></li>
+<li>2D convolution is template matching, feature detection</li>
+<li>The output is called feature map</li>
+</ul></li>
+<li>Convolution is matrix multiplication
+<ul>
+<li>The corresponding weight matrix is Toeplitz like</li>
+<li><span class="math inline">\(y = Cx\)</span></li>
+<li><span class="math inline">\(C = [[w_1, w_2,0|w_3, w_4, 0|0,0,0],[0, w_1, w_2 | 0, w_3, w_4 | 0,0,0],....]\)</span></li>
+<li>Weight matrix is sparse in a typical MLP setting</li>
+</ul></li>
+<li>Valid Convolution
+<ul>
+<li>Filter Size: <span class="math inline">\((f_h, f_w)\)</span></li>
+<li>Image Size: <span class="math inline">\((x_h, x_w)\)</span></li>
+<li>Output Size : <span class="math inline">\((x_h - f_w + 1, x_w - f_w + 1)\)</span></li>
+</ul></li>
+<li>Padding
+<ul>
+<li>Filter Size: <span class="math inline">\((f_h, f_w)\)</span></li>
+<li>Image Size: <span class="math inline">\((x_h, x_w)\)</span></li>
+<li>Padding Size: <span class="math inline">\((p_h, p_w)\)</span></li>
+<li>Output Size : <span class="math inline">\((x_h + 2p_h - f_w + 1, x_w + 2p_w - f_w + 1)\)</span></li>
+<li>If 2p = f - 1, then output size is equal to input size</li>
+</ul></li>
+<li>Strided Convolution
+<ul>
+<li>Skip every sth input to reduce redundancy</li>
+<li>Filter Size: <span class="math inline">\((f_h, f_w)\)</span></li>
+<li>Image Size: <span class="math inline">\((x_h, x_w)\)</span></li>
+<li>Padding Size: <span class="math inline">\((p_h, p_w)\)</span></li>
+<li>Stride Size: <span class="math inline">\((s_h, s_w)\)</span></li>
+<li>Output Size: <span class="math inline">\(\lbrack {x_h + 2p_h -f_h +s_h \over s_h}, {x_w + 2p_w -f_w + s_w \over s_w} \rbrack\)</span></li>
+</ul></li>
+<li>Mutiple channels
+<ul>
+<li>Input images have 3 channels</li>
+<li>Define a kernel for each input channel</li>
+<li>Weight is a 3D matrix</li>
+<li><span class="math inline">\(z_{i,j} = \sum_H \sum_W \sum_C x_{si + u, sj+v, c} w_{u,v,c}\)</span></li>
+</ul></li>
+<li>In order to detect multiple features, extend the dimension of weight matrix
+<ul>
+<li>Weight is a 4D matrix</li>
+<li><span class="math inline">\(z_{i,j,d} = \sum_H \sum_W \sum_C x_{si + u, sj+v, c} w_{u,v,c,d}\)</span></li>
+<li>Output is a hyper column formed by concatenation of feature maps</li>
+</ul></li>
+<li>Special Case: (1x1) point wise convolution
+<ul>
+<li>Filter is of size 1x1.</li>
+<li>Only the number of channels change from input to output</li>
+<li><span class="math inline">\(z_{i,j,d} = \sum x_{i,j,c}w_{0,0,c,d}\)</span></li>
+</ul></li>
+<li>Pooling Layers
+<ul>
+<li>Convolution preserves information about location of input features i.e. equivariance</li>
+<li>To achieve translational invariance, use pooling operation</li>
+<li>Max Pooling
+<ul>
+<li>Maximum over incoming values</li>
+</ul></li>
+<li>Average Pooling
+<ul>
+<li>Average over incoming values</li>
+</ul></li>
+<li>Global Average Pooling
+<ul>
+<li>Convert the (H,W,D) feature maps into (1,1,D) output layer</li>
+<li>Usually to compute features before passing to fully connected layer</li>
+</ul></li>
+</ul></li>
+<li>Dilated Convolution
+<ul>
+<li>Convolution with holes</li>
+<li>Takes every rth input (r is the dilation rate)</li>
+<li>The filters have 0s</li>
+<li>Increases the receptive field</li>
+</ul></li>
+<li>Transposed Convolution
+<ul>
+<li>Produce larger output form smaller input</li>
+<li>Pad the input with zeros and then run the filter</li>
+</ul></li>
+<li>Depthwise</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Normalization
+<ul>
+<li>Vanishing / Exploding gradient issues in deeper models</li>
+<li>Add extra layers to standardize the statistics of hidden units</li>
+<li>Batch Normalization
+<ul>
+<li>Zero mean and unit variance across the samples in a minibatch</li>
+<li><span class="math inline">\(\hat z_n = {z_n - \mu_b \over \sqrt{\sigma^2_b +\epsilon}}\)</span></li>
+<li><span class="math inline">\(\tilde z_n = \gamma \hat z_n + \beta\)</span></li>
+<li><span class="math inline">\(\gamma, \beta\)</span> are learnable parameters</li>
+<li>When applied to input layer, BN is close to unsual standardization process</li>
+<li>For other layers, as model trains, the mean and variance change
+<ul>
+<li>Internal Covariate Shift</li>
+</ul></li>
+<li>At test time, the inference may run on streaming i.e. one example at a time
+<ul>
+<li>Solution: After training, re-compute the mean and variance across entire training batch and then freeze the parameters</li>
+<li>Sometimes, after recomputing, the BN parameters are fused to the hidden layer. This results in fused BN layer</li>
+</ul></li>
+<li>BN struggles when batch size is small</li>
+</ul></li>
+<li>Layer Normalization
+<ul>
+<li>Pool over channel, height and width</li>
+<li>Match on batch index</li>
+</ul></li>
+<li>Instance Normalization
+<ul>
+<li>Pool over height and width</li>
+<li>Match over batch index</li>
+</ul></li>
+<li>Normalization Free Networks
+<ul>
+<li>Adaptive gradient clipping<br />
+</li>
+</ul></li>
+</ul></li>
+<li>Common Architectures
+<ul>
+<li>ResNet
+<ul>
+<li>Uses residula blocks to learn small perturbation in inputs</li>
+<li>Residual Block: conv:BN:ReLU:conv:BN</li>
+<li>Use padding, 1x1 convolution to ensure that additive operation is valid</li>
+</ul></li>
+<li>DenseNet
+<ul>
+<li>Concatenate (rather than add) the output with the input</li>
+<li><span class="math inline">\(x \rightarrow [x, f_1(x), f_2(x, f_1(x)), f_3(x, f_1(x), f_2(x))]\)</span></li>
+<li>Computationally expensive</li>
+</ul></li>
+<li>Neural Architecture Search
+<ul>
+<li>EfficeintNetV2<br />
+</li>
+</ul></li>
+</ul></li>
+<li>Adversarial Exmaples
+<ul>
+<li>White-Box Attacks
+<ul>
+<li>Gradient Free</li>
+<li>Add small perturbation to input that changes the prediction from classifier</li>
+<li>Targeted attack</li>
+</ul></li>
+<li>Black-Box Attack
+<ul>
+<li>Gradient Free</li>
+<li>Design fooling images as apposed to adversarial images</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="feed-forward-nn.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="recurrent-nn.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

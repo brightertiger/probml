@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 11 Linear Regression | Notes on ProbML</title>
+  <meta name="description" content=" 11 Linear Regression | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 11 Linear Regression | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 11 Linear Regression | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="logistic-regression.html"/>
+<link rel="next" href="feed-forward-nn.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-regression" class="section level1" number="11">
+<h1><span class="header-section-number"> 11</span> Linear Regression</h1>
+<ul>
+<li>Predict real valued output</li>
+<li><span class="math inline">\(p(y | x, \theta) = N(y | w^Tx +b, \sigma^2)\)</span></li>
+<li>Simple Linear regression has i feature vector</li>
+<li>Multiple Linear Regression has many feature vectors</li>
+<li>Multivariate Linear Regression has multiple outputs</li>
+<li>Feature extractor helps in improving the fit of the model</li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Least Square Estimate
+<ul>
+<li>Minimize the negative log likelihood (NLL)</li>
+<li><span class="math inline">\(\text{NLL}(w, \sigma^2) = {1 \over 2\sigma^2} \sum (y - \hat y)^2 + {N \over 2} \log(2\pi\sigma^2)\)</span></li>
+<li>First term is referred as Residual Sum Squares (RSS)</li>
+<li>Ordinary Least Squares
+<ul>
+<li><span class="math inline">\(\Delta_w RSS = 0\)</span></li>
+<li><span class="math inline">\(X^TXw = X^Ty\)</span></li>
+<li>Normal Equation because <span class="math inline">\(Xw - y\)</span> is orthogonal to <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(w = (X^TX)^{-1}X^Ty\)</span></li>
+<li>Hessian is <span class="math inline">\(X^TX\)</span> i.e. positive definite if X is full rank</li>
+</ul></li>
+<li>Inverting <span class="math inline">\(X^TX\)</span> is not easy for numerical reasons as it may be ill-conditioned or singular</li>
+<li>A better approach is to compute pseudo-inverse using SVD</li>
+<li>If the variance is heteroskedastic, the model becomes weighted least squares.
+<ul>
+<li><span class="math inline">\(p(y|x, \theta) = N(y| wx +b, \sigma^2(x))\)</span></li>
+</ul></li>
+<li>In case of if simple linear regression:
+<ul>
+<li><span class="math inline">\(w = C_{xy} / C_{xx}\)</span>, i.e. ratio of covariances</li>
+<li><span class="math inline">\(b = \bar y - w \bar x\)</span></li>
+</ul></li>
+<li>In case of two inputs with no correlation:
+<ul>
+<li><span class="math inline">\(W_{X1} = R_{YX2.X1}\)</span></li>
+<li><span class="math inline">\(W_{X2} = R_{YX1.X2}\)</span></li>
+<li>Partial Regression Coefficients Y on X1 keeping X2 constant</li>
+</ul></li>
+<li>The estimate of variance from NLL is MSE of residuals
+<ul>
+<li><span class="math inline">\(\hat \sigma^2 = {1 \over N}\sum (y - \hat y)^2\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Goodness of Fit
+<ul>
+<li>Residual Plots: Check if the residuals are normally distributed with zero mean</li>
+<li>Prediction Accuracy: RMSE <span class="math inline">\(\sqrt{ {1\over N} RSS}\)</span> measures prediction error</li>
+<li>Coefficient of Determination: <span class="math inline">\(R^2 = 1 - {RSS \over TSS}\)</span>
+<ul>
+<li>TSS: Prediction from baseline model: average of Y</li>
+<li>TSS - RSS: Reduction in variance / betterment in fit</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Ridge Regression
+<ul>
+<li>MLE / OLS estimates can result in overfitting</li>
+<li>MAP estimation with zero mean Gaussian Prior
+<ul>
+<li><span class="math inline">\(p(w) = N(0, \lambda^{-1}\sigma^2)\)</span></li>
+<li><span class="math inline">\(L(w) = RSS + \lambda ||w||^2\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\lambda\)</span> is the L2 regularization or weight decay</li>
+<li>Ridge Regression is connected to PCA
+<ul>
+<li>The eigenvectors, eigenvalues of <span class="math inline">\(X^TX\)</span> matrix</li>
+<li>Ridge regression shrinks the eigenvectors corresponding to smaller eigenvalues.</li>
+<li><span class="math inline">\(\lambda\)</span> is sometimes referred as shrinkage parameter</li>
+<li>Alternate way is to run PCA on X and then run regression</li>
+<li>Ridge is a superior approach</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Robust Linear Regression
+<ul>
+<li>MLE/MAP is sensitive to outliers</li>
+<li>Solutions
+<ul>
+<li>Replace Gaussian with Student-t distribution which has heavy tails
+<ul>
+<li>The model does not get obsessed with outliers</li>
+<li>Tails have more mass which gets factored in while maximizing MLE</li>
+</ul></li>
+<li>Compute MLE using EM
+<ul>
+<li>Represent Student-t distribution as Gaussian scale mixture</li>
+</ul></li>
+<li>Using Laplace Distribution which is robust to outliers</li>
+<li>Using Huber Loss
+<ul>
+<li>L2 loss for small errors</li>
+<li>L1 loss for large erros</li>
+<li>Loss function is differentiable</li>
+</ul></li>
+<li>RANSAC
+<ul>
+<li>Random Sample Concensus</li>
+<li>Identify outliers from fitted models</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Lasso Regression
+<ul>
+<li>Least absolute shrinkage and selection operator</li>
+<li>Case where we want the parameters to be zero i.e. sparse models</li>
+<li>Used for feature selection</li>
+<li>MAP formulation with Laplace priors</li>
+<li>L1 regularization</li>
+<li>Rationale for sparsity
+<ul>
+<li>Consider Lagrange Formulation with constraint</li>
+<li>L1 formulation: <span class="math inline">\(||w|| \le B\)</span></li>
+<li>L2 formulation: <span class="math inline">\(||w||^2 \le B\)</span></li>
+<li>L1 constraint is a rhombus</li>
+<li>L2 constraint is a sphere</li>
+<li>The objective is more likely to intersect L1 constraint at an point corner</li>
+<li>At the corners the parameters for some dimensions are 0</li>
+</ul></li>
+<li>Regularization Path
+<ul>
+<li>Start with very high value of regularization</li>
+<li>Gradually decrease the regularization strength</li>
+<li>The set of parameters that get swept out is known as regularization path</li>
+<li>Performs variable selection</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Elastic Net
+<ul>
+<li>Combination of Ridge and Lasso</li>
+<li>Helpful in dealing with correlated variables</li>
+<li>Estimates of highly correlated variables tend be equal</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Coordinate Descent
+<ul>
+<li>Basis for glmnet library</li>
+<li>Solve for jth coefficient while all others are fixed</li>
+<li>Cycle through the coordinates</li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="logistic-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="feed-forward-nn.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

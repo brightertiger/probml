@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 6 Decision Theory | Notes on ProbML</title>
+  <meta name="description" content=" 6 Decision Theory | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 6 Decision Theory | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 6 Decision Theory | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="statistics.html"/>
+<link rel="next" href="information-theory.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="decision-theory" class="section level1" number="6">
+<h1><span class="header-section-number"> 6</span> Decision Theory</h1>
+<ul>
+<li>Optimal Policy specifies which action to take for each possible observation to minimize risk or maximize utility</li>
+<li>Implicit assumption is that agents are risk neutral. 50 vs 0.5 * 100</li>
+<li>Zero-One loss: miss-classification rate in binary classifier
+<ul>
+<li><span class="math inline">\(l_{01}(y, \hat y) = I\{y \ne \hat y\}\)</span></li>
+<li>Optimal policy is to choose most probable label to minimize risk
+<ul>
+<li><span class="math inline">\(R(y | x) = p(y \ne \hat y | x) = 1 - p(y = \hat y | x)\)</span></li>
+<li><span class="math inline">\(\pi(x) = \arg \max p(y | x)\)</span></li>
+</ul></li>
+<li>In case the errors are cost-sensitive
+<ul>
+<li>FP is not same as FN</li>
+<li><span class="math inline">\(l_{01} = c \times l_{10}\)</span></li>
+<li>Choose the label 1 if expected loss is lower:
+<ul>
+<li><span class="math inline">\(p0 \times l_{01} &lt; p1 \times c \times l_{10}\)</span></li>
+</ul></li>
+<li>c will trade-off the decision boundary</li>
+</ul></li>
+<li>In case reject or abstain is also a possible action
+<ul>
+<li>Assume the cost of error <span class="math inline">\(\lambda_e\)</span></li>
+<li>Assume the cost of rejection: <span class="math inline">\(\lambda_r\)</span></li>
+<li>No decision when model confidence is below <span class="math inline">\(1 - {\lambda_e \over \lambda _r}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>ROC Curves</strong></p>
+<ul>
+<li><p>Summarize performance across various thresholds</p></li>
+<li><p>Confusion Matrix</p>
+<ul>
+<li>Give a threshold <span class="math inline">\(\tau\)</span></li>
+<li>Confusion Matrix
+<ul>
+<li>Positive, Negative: Model Prediction</li>
+<li>True, False: Actual Labels</li>
+<li>TP, TN: Correct Predictions</li>
+<li>FP: Model predicts 1, Ground Truth is 0</li>
+<li>FN: Model predicts 0, Ground Truth is 1</li>
+</ul></li>
+<li>Ratios from Confusion Matrix
+<ul>
+<li>TPR, Sensitivity, Recall
+<ul>
+<li>TP / (TP + FN)</li>
+<li>Accuracy in positive predictions</li>
+</ul></li>
+<li>FPR, Type 1 Error rate
+<ul>
+<li>FP / (FP + TN)</li>
+<li>Error in Negative Predictions</li>
+</ul></li>
+</ul></li>
+<li>ROC Curve is a plot between FPR (x-axis) and TPR (y-axis) across various thresholds</li>
+<li>AUC is a numerical summary of ROC</li>
+<li>Equal Error Rate is where ROC crosses -45 degree line.</li>
+<li>ROC Curve is insensitive to class imbalance
+<ul>
+<li>FPR consists of TN in denominator</li>
+<li>If TN &gt;&gt; TP, metric becomes insensitive to FPR</li>
+</ul></li>
+<li>Precision-Recall Curves
+<ul>
+<li>The negatives are not model specific but system specific</li>
+<li>For a search query, retrieve 50 vs 500 items. (or tiles vs list)</li>
+<li>Precision
+<ul>
+<li>TP / TP + FP</li>
+</ul></li>
+<li>Recall
+<ul>
+<li>TP / TP + FN</li>
+</ul></li>
+<li>There is no dependency on TN</li>
+<li>Precision curve has distortions. Smooth it out by interpolation.</li>
+<li>To summarize the performance by a scalar
+<ul>
+<li>Precision @ K</li>
+<li>Average Precision: Area under interpolated precision curve</li>
+<li>mAP or Mean Average Precision is mean of AP across different PR curves (say different queries)</li>
+</ul></li>
+<li>F-Score
+<ul>
+<li>Weighted harmonic mean between precision and recall</li>
+<li><span class="math inline">\({1 \over F} = {1 \over 1 + \beta^2} {1 \over P} + {\beta^2 \over 1 + \beta^2} {1 \over R}\)</span></li>
+<li>Harmonic mean imposes more penalty if either precision or recall fall to a very low level</li>
+</ul></li>
+</ul></li>
+<li>Class Imbalance
+<ul>
+<li>ROC curves are not sensitive to class imbalance. Does not matter which class is defined as 1 or 0.</li>
+<li>PR curves are sensitive to class imbalance. Switching classes impacts performance.
+<ul>
+<li><span class="math inline">\(P = {TP \over TP + FP}\)</span></li>
+<li><span class="math inline">\(P = {TPR \over TPR + r^{-1} FPR}\)</span></li>
+<li>r = positive / negative</li>
+</ul></li>
+<li>F-Score is also affected by class imbalance.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Regression Metrics</strong></p>
+<ul>
+<li>L2 Loss
+<ul>
+<li><span class="math inline">\(l(h,a) = (h-a)^2\)</span></li>
+<li>Risk Estimate</li>
+<li><span class="math inline">\(R(a|x) = E[(h-a)^2| x] = E[h^2|x] -2aE[h|x] + a^2\)</span></li>
+<li>To minimize risk, set the derivative of risk to zero.</li>
+<li><span class="math inline">\(\pi(x) \Rightarrow E[h|X] = a\)</span></li>
+<li>Optimal action is to set the prediction to posterior conditional mean.</li>
+</ul></li>
+<li>L1 Loss
+<ul>
+<li>L2 Loss is sensitive to outliers.</li>
+<li>L1 is more robust to alternatives</li>
+<li><span class="math inline">\(l(h,a) = |h-a|\)</span></li>
+</ul></li>
+<li>Huber Loss
+<ul>
+<li>Middle ground between L1 and L2 loss</li>
+<li>Set a threshold <span class="math inline">\(\delta\)</span>
+<ul>
+<li>If error exceeds thresholds → L1 loss</li>
+<li>If error below threshold → L2 loss</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Probabilistic Metrics</strong></p>
+<ul>
+<li><p>Estimate probabilistic distribution over labels</p></li>
+<li><p>KL Divergence</p>
+<ul>
+<li><span class="math inline">\(KL(p||q) = \sum p log(p|q)\)</span></li>
+<li><span class="math inline">\(KL(p||q) = H(p,q) - H(p)\)</span></li>
+<li>Always &gt;= 0. Equality holds when p == q</li>
+<li>H(p) is the entropy.</li>
+<li>H(p,q) is the cross entropy.</li>
+<li>Cross entropy measures the bits required to encode data coming from p encoded via q.</li>
+<li>KL divergence measures the extra bits needed to compress information using wrong distribution q instead of p.</li>
+<li>H(p) is independent of q. Hence, minimizing KL divergence is equivalent to minimizing the cross-entropy.</li>
+<li>Extending cross-entropy to multiple labels leads to log-loss.</li>
+<li>KL divergence is sensitive to errors at low probability events.</li>
+</ul></li>
+</ul>
+<p><strong>A/B Testing</strong></p>
+<ul>
+<li><p>Test and Roll approach to business decisions</p></li>
+<li><p>Randomly assign different actions to different populations</p></li>
+<li><p>Incurs opportunity cost. Exploration-Exploitation tradeoff.</p></li>
+<li><p>Bayesian Approach</p></li>
+<li><p>Bandits</p></li>
+<li><p>Marginal Log-Likelihood</p></li>
+</ul>
+<p><INCOMPLETE></p>
+<p><strong>Information Criteria</strong></p>
+<ul>
+<li>Marginal Likelihood difficult to compute.</li>
+<li>ICs incorporate model complexity penalty without the use of validation set.</li>
+<li>ICs are of the form deviance + some form of complexity.
+<ul>
+<li><span class="math inline">\(\text{deviance} = -2 \sum \log p + C\)</span></li>
+</ul></li>
+<li>Bayesian Information Criterion
+<ul>
+<li><span class="math inline">\(C = \log(N) \times \text{dof}\)</span></li>
+<li>dof is degrees of freedom or number of free parameters</li>
+<li>log of marginal likelihood of the gaussian approximation to the posterior</li>
+</ul></li>
+<li>Akaike Information Criterion
+<ul>
+<li>Penalizes model less heavily compared to BIC</li>
+<li><span class="math inline">\(C = 2 \times \text{dof}\)</span></li>
+</ul></li>
+</ul>
+<p><strong>Frequentist Decision Theory</strong></p>
+<ul>
+<li>Risk of an estimator is the expected loss when applying the estimator to data sampled from likelihood function <span class="math inline">\(p( y,x | \theta)\)</span></li>
+<li>Bayes Risk
+<ul>
+<li>True generating function unknown</li>
+<li>Assume a prior and then average it out</li>
+</ul></li>
+<li>Maximum Risk
+<ul>
+<li>Minimize the maximum risk</li>
+</ul></li>
+<li>Consistent Estimator
+<ul>
+<li>Recovers true parameter in the limit of infinite data</li>
+</ul></li>
+<li>Empirical Risk Minimization
+<ul>
+<li>Population Risk
+<ul>
+<li>Expectation of the loss function w.r.t. true distribution</li>
+<li>True distribution is unknown</li>
+<li><span class="math inline">\(R(f, \theta^*) = \mathbf{E}[l(\theta^*, \pi(D))]\)</span></li>
+</ul></li>
+<li>Empirical Risk
+<ul>
+<li>Approximate the expectation of loss by using training data samples</li>
+<li><span class="math inline">\(R(f, D) = \mathbf{E}[l(y, \pi(x))]\)</span></li>
+</ul></li>
+<li>Empirical Risk Minimizaiton
+<ul>
+<li>Optimize empirical risk over hypothesis space of functions</li>
+<li><span class="math inline">\(f_{ERM} = \arg \min_H R(f,D)\)</span></li>
+</ul></li>
+<li>Approximation Error
+<ul>
+<li>Risk that the chosen true parameters don’t lie in the hypothesis space</li>
+</ul></li>
+<li>Estimation Error
+<ul>
+<li>Error due to having finite training set</li>
+<li>Difference between training error and test error</li>
+<li>Generalization Gap</li>
+</ul></li>
+<li>Regularized Risk
+<ul>
+<li>Add complexity penalty</li>
+<li><span class="math inline">\(R_\lambda(f,D) = R(f,D) + \lambda C(f)\)</span></li>
+<li>Complexity term resembles the prior term in MAP estimation</li>
+</ul></li>
+<li>Structural Risk
+<ul>
+<li>Empirical underestimates population risk</li>
+<li>Structural risk minimization is to pick the right level of model complexity by minimizing regularized risk and cross-validation</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Statistical Learning Theory</strong></p>
+<ul>
+<li>Upper bound on generalization error with certain probability</li>
+<li>PAC (probably approximately correct) learnable</li>
+<li>Hoeffding’s Inequality
+<ul>
+<li>Upper bound on generalization error</li>
+</ul></li>
+<li>VC Dimension
+<ul>
+<li>Measures the degrees of freedom of a hypothesis class</li>
+</ul></li>
+</ul>
+<p><strong>Frequentist Hypothesis Testing</strong></p>
+<ul>
+<li>Null vs Alternate Hypothesis</li>
+<li>Likelihood Ratio Test
+<ul>
+<li><span class="math inline">\(p(D| H_0) / p(D| H_1)\)</span></li>
+</ul></li>
+<li>Null Hypothesis Significance Testing
+<ul>
+<li>Type-1 Error
+<ul>
+<li>P(Reject H0 | H0 is True)</li>
+<li>Significance of the test</li>
+<li><span class="math inline">\(\alpha\)</span></li>
+</ul></li>
+<li>Type-2 Error
+<ul>
+<li>P(Accept H0 | H1 is True)</li>
+<li><span class="math inline">\(\beta\)</span></li>
+<li>Power of the test is <span class="math inline">\(1 - \beta\)</span></li>
+</ul></li>
+<li>Most powerful test is the one with highest power given a level of significance</li>
+<li>Neyman-Pearson lemma: Likelihood ratio test is the most powerful test</li>
+<li>p-value
+<ul>
+<li>Probability, under the null hypothesis, of observing a test statistic larger that that actually observed</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="information-theory.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

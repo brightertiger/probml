@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 12 Feed Forward NN | Notes on ProbML</title>
+  <meta name="description" content=" 12 Feed Forward NN | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 12 Feed Forward NN | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 12 Feed Forward NN | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="linear-regression.html"/>
+<link rel="next" href="convolution-nn.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="feed-forward-nn" class="section level1" number="12">
+<h1><span class="header-section-number"> 12</span> Feed Forward NN</h1>
+<ul>
+<li>Linear Models do an affine transformation of inputs <span class="math inline">\(f(x, \theta) = Wx + b\)</span></li>
+<li>To increase model flexibility, perform feature transformation <span class="math inline">\(f(x, \theta) = W \phi(x) + b\)</span></li>
+<li>Repeatedly nesting the transformation functions results in deep neural networks
+<ul>
+<li><span class="math inline">\(f(x, \theta) = f_L(f_{L-1}(f_{L-2}.....(f_1(x)....))\)</span></li>
+<li>Composed of differentiable functions in any kind of DAG (directed acyclic graphs)</li>
+</ul></li>
+<li>Multilayer Perceptrons
+<ul>
+<li>XOR (Exclusive OR) Problem: Inputs are note linearly separable</li>
+<li>Stacking multiple functions on top of each other can overcome this problem</li>
+</ul></li>
+<li>Stacking linear activation functions results in linear model
+<ul>
+<li><span class="math inline">\(f(x, \theta) = W_L(W_{L-1}(W_{L-2}.....(W_1(x)....)) = \tilde Wx\)</span></li>
+</ul></li>
+<li>Activation functions are differentiable non-linear functions
+<ul>
+<li>Sigmoid: (0,1)</li>
+<li>TanH: (-1,+1) (e2x -1 / e2x + 1)</li>
+<li>ReLU: max(a, 0), non-saturating activation function</li>
+</ul></li>
+<li>Universal Function Approximator
+<ul>
+<li>MLP with one hidden layer is universal function approximator</li>
+<li>Can form a suitable smooth function given enough hidden units</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Backpropagation Algorithm
+<ul>
+<li>Compute gradient of a loss function wrt parameters in each layer</li>
+<li>Equivalent to repeated application of chain rule</li>
+<li>Autodiff: Automatic Differentiation on Computation Graph</li>
+<li>Suppose <span class="math inline">\(f = f_1 \circ f_2 \circ f_3 \circ f_4\)</span>
+<ul>
+<li>Jacobain <span class="math inline">\(\mathbf J_f\)</span> needs to be calculated for backprop</li>
+<li>Row Form: <span class="math inline">\(\triangledown f_i(\mathbf x)\)</span> is the ith row of jacobian
+<ul>
+<li>Calculated efficiently using forward mode</li>
+</ul></li>
+<li>Column Form: <span class="math inline">\(\delta \mathbf f \over \delta x_i\)</span> is the ith column of jacobian
+<ul>
+<li>Calculated efficiently using the backward mode</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Derivatives
+<ul>
+<li>Cross-Entropy Layer
+<ul>
+<li><span class="math inline">\(z = \text{CrossEntropyWithLogitsLoss(y,x)}\)</span></li>
+<li><span class="math inline">\(z = -\sum_c y_c \log(p_c)\)</span></li>
+<li><span class="math inline">\(p_c = {\exp x_c \over \sum_c \exp x_c}\)</span></li>
+<li><span class="math inline">\({\delta z \over \delta x_c} = \sum_c {\delta z \over \delta p_i} \times {\delta p_i \over \delta x_c}\)</span></li>
+<li>When i = c
+<ul>
+<li><span class="math inline">\({\delta z \over \delta x_c} = {-y_c \over p_c} \times p_c (1 - p_c) = - y_c ( 1 - p_c)\)</span></li>
+</ul></li>
+<li>When i &lt;&gt; c
+<ul>
+<li><span class="math inline">\({\delta z \over \delta x_c} = {-y_c \over p_c} \times - p_i p_c = -y_c p_c\)</span></li>
+</ul></li>
+<li>Adding up
+<ul>
+<li><span class="math inline">\(-y_c(1-p_c) + \sum_{i \ne c} y_c p_i = p_c \sum_c y_c - y_c = p_c - y_c\)</span></li>
+</ul></li>
+</ul></li>
+<li>ReLU
+<ul>
+<li><span class="math inline">\(\phi(x) = \max(x,0)\)</span></li>
+<li><span class="math inline">\(\phi&#39;(x,a) = I\{x &gt; 0\}\)</span></li>
+</ul></li>
+<li>Adjoint
+<ul>
+<li><span class="math inline">\({\delta o \over \delta x_j} = \sum_{children} {\delta o \over \delta x_i} \times {\delta x_i \over \delta x_j}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Training Neural Networks
+<ul>
+<li>Maximize the likelihood: <span class="math inline">\(\min L(\theta) = -\log p(D|\theta)\)</span></li>
+<li>Calculate gradients using backprop and use an optimizer to tune the parameters</li>
+<li>Objective function is not convex and there is no guarantee to find a global minimum</li>
+<li>Vanishing Gradients
+<ul>
+<li>Gradients become very small</li>
+<li>Stacked layers diminish the error signals</li>
+<li>Difficult to solve</li>
+<li>Modify activation functions that don’t saturate</li>
+<li>Switch to architectures with additive operations</li>
+<li>Layer Normalization</li>
+</ul></li>
+<li>Exploding Gradients
+<ul>
+<li>Gradients become very large</li>
+<li>Stacked layers amplify the error signals</li>
+<li>Controlled via gradient clipping</li>
+</ul></li>
+<li>Exploding / Vanishing gradients are related to the eigenvalues of the Jacobian matrix
+<ul>
+<li>Chain Rule</li>
+<li><span class="math inline">\({\delta L \over \delta z_l} = {\delta L \over \delta z_{l+1}} \times {\delta z_{l+1} \over \delta z_{l}}\)</span></li>
+<li><span class="math inline">\({\delta L \over \delta z_l} = J_l \times g_{l+1}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Non-Saturating Activations
+<ul>
+<li>Sigmoid
+<ul>
+<li><span class="math inline">\(f(x) = 1 / (1 + \exp^{-x}) = z\)</span></li>
+<li><span class="math inline">\(f&#39;(x) = z (1 - z)\)</span></li>
+<li>If z is close to 0 or 1, the derivative vanishes</li>
+</ul></li>
+<li>ReLU
+<ul>
+<li><span class="math inline">\(f(x) = \max(0, x)\)</span></li>
+<li><span class="math inline">\(f&#39;(x) = I \{x &gt; 0\}\)</span></li>
+<li>Derivative will exist as long as the input is positive</li>
+<li>Can still encounter dead ReLU problem when weights are large negative/positive</li>
+</ul></li>
+<li>Leaky ReLU
+<ul>
+<li><span class="math inline">\(f(x,\alpha) = max(\alpha x, x); \,\,\, 0&lt; \alpha &lt; 1\)</span></li>
+<li>Slope is 1 for for positive inputs</li>
+<li>Slope is alpha for negative inputs</li>
+<li>If alpha is learnable, then we get parametric ReLU</li>
+</ul></li>
+<li>ELU, SELU are smooth versions of ReLU</li>
+<li>Swish Activation
+<ul>
+<li><span class="math inline">\(f(x) = x \sigma(x)\)</span></li>
+<li><span class="math inline">\(f&#39;(x) = f(x) + \sigma(x) (1 - f(x))\)</span></li>
+<li>The slope has additive operations</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Residual Connections
+<ul>
+<li>It’s easier to learn small perturbations to inputs than to learn new output</li>
+<li><span class="math inline">\(F_l(x) = x + \text{activation}_l(x)\)</span></li>
+<li>Doesn’t add more parameters</li>
+<li><span class="math inline">\(z_L = z_l + \sum_{i=l}^L F_i(z_i)\)</span></li>
+<li><span class="math inline">\({\delta L \over \delta \theta_l} = {\delta L \over \delta z_l} \times {\delta z_l \over \delta \theta_l}\)</span></li>
+<li><span class="math inline">\({\delta L \over \delta \theta_l} = {\delta z_l \over \delta \theta_l} \times {\delta L \over \delta z_L} (1 + \sum f&#39;(z_i))\)</span></li>
+<li>The derivative of the layer l has a term that is independent of the network</li>
+</ul></li>
+<li>Initialization
+<ul>
+<li>Sampling parameters from standard normal distribution with fixed variance can result in exploding gradients</li>
+<li>Suppose we have linear activations sampled from standard Normal Distribution
+<ul>
+<li><span class="math inline">\(o = \sum w_j x_ij\)</span></li>
+<li><span class="math inline">\(E(o) = \sum E(w_j)E(x_{ij}) = 0\)</span></li>
+<li><span class="math inline">\(V(o) \propto n_{in} \sigma^2\)</span></li>
+</ul></li>
+<li>Similarly for gradients:
+<ul>
+<li><span class="math inline">\(V(o&#39;) \propto n_{out} \sigma^2\)</span></li>
+</ul></li>
+<li>To prevent the expected variance from blowing up
+<ul>
+<li><span class="math inline">\(\sigma^2 = {1 \over (n_{in} + n_{out})}\)</span></li>
+<li>Xavier Initialization, Glorot Initialization</li>
+<li>He/LeCun Initialization equivalent if n_in = n_out</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Regularization
+<ul>
+<li>Early Stopping
+<ul>
+<li>Stop training when error on validation set stops reducing</li>
+<li>Restricts optimization algorithm to transfer information from the training examples</li>
+</ul></li>
+<li>Weight Decay
+<ul>
+<li>Impose prior on parameters and then use MAP estimation</li>
+<li>Encourages smaller weights</li>
+</ul></li>
+<li>Sparse DNNs
+<ul>
+<li>Model compression via quantization</li>
+</ul></li>
+<li>Dropout
+<ul>
+<li>Turnoff outgoing connections with probability p</li>
+<li>Prevents complex co-adaptation</li>
+<li>Each unit should learn to perform well on its own</li>
+<li>At test time, turning on dropout is equivalent to ensemble of networks (Monte Calo Dropout)</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="convolution-nn.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

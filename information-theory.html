@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 7 Information Theory | Notes on ProbML</title>
+  <meta name="description" content=" 7 Information Theory | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 7 Information Theory | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 7 Information Theory | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="decision-theory.html"/>
+<link rel="next" href="optimization.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="information-theory" class="section level1" number="7">
+<h1><span class="header-section-number"> 7</span> Information Theory</h1>
+<ul>
+<li>Entropy is a measure of uncertainty or lack of predictability associated with a distribution</li>
+<li>If entropy is high, it’s difficult to predict the value of observation</li>
+<li><span class="math inline">\(H(X) = - \sum p \log p = - E(\log p)\)</span></li>
+<li>Uniform distribution has maximum entropy</li>
+<li>Dirac Delta distribution has minimum entropy</li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Cross Entropy
+<ul>
+<li><span class="math inline">\(H(p,q) = -\sum p \log q\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Joint Entropy
+<ul>
+<li><span class="math inline">\(H(X,Y) = -\sum p(x,y) \log p(x,y)\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Conditional Entrpoy
+<ul>
+<li><span class="math inline">\(H(Y | X) = \sum_x p(X) H(p(Y | X=x))\)</span></li>
+<li><span class="math inline">\(H(Y|X) = H(X,Y) - H(X)\)</span></li>
+<li>Reduction in joint uncertainty (X,Y) given we observed X</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Perplexity
+<ul>
+<li>Exponentiated cross-entropy</li>
+<li>Geometric mean of inverse probabilities</li>
+<li><span class="math inline">\(\text{perplexity}(p) = 2^{H(p)} = \sqrt{ \prod {1 \over p}}\)</span></li>
+<li>Used to evaluate the quality of generative language models</li>
+<li>Weighted average of branching factor
+<ul>
+<li>Number of possible words that can follow a given word</li>
+<li>Given vocab size is K</li>
+<li>If some words are more frequent, perplexity is lower than K</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>KL Divergence
+<ul>
+<li>Relative Entropy</li>
+<li>Distance between two distribution</li>
+<li><span class="math inline">\(KL(p||q) = H(p,q) - H(p)\)</span></li>
+<li>Extra bits needed when compressing data generated from p using q</li>
+<li>Suppose objective is to minimize KL divergence</li>
+<li>Empirical distribution puts probability mass on training data and zero mass every where else
+<ul>
+<li><span class="math inline">\(p = {1 \over N} \sum {\delta (x - x_n)}\)</span></li>
+</ul></li>
+<li>This reduces KL divergence to cross entropy or negative log likelihood.
+<ul>
+<li><span class="math inline">\(KL(p||q) = {1 \over N} \sum \log q(x_n)\)</span></li>
+</ul></li>
+<li>Data augmentation perturbs data samples to reflect natural variations. This spreads the probability mass over larger space. Prevents overfitting.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Mutual Information
+<ul>
+<li><span class="math inline">\(I(X,Y) = KL(p(x,y) || p(x)p(y))\)</span></li>
+<li>KL Divergence between joint and factored marginal distribution</li>
+<li><span class="math inline">\(I(X,Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)\)</span></li>
+<li>Reduction in uncertainty about X after observing Y</li>
+<li>Generalized correlation coefficient that can capture non-linear trends.</li>
+<li>Can be normalized to reduce scale effect</li>
+<li>Data Processing Inequality: Transformation cannot increase the amount of information</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Fano’s Inequality
+<ul>
+<li>Feature selection via high mutual information</li>
+<li>Bounds probability of misclassification in terms of mutual information between features</li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="decision-theory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="optimization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 14 Recurrent NN | Notes on ProbML</title>
+  <meta name="description" content=" 14 Recurrent NN | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 14 Recurrent NN | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 14 Recurrent NN | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="convolution-nn.html"/>
+<link rel="next" href="exemplar-methods.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="recurrent-nn" class="section level1" number="14">
+<h1><span class="header-section-number"> 14</span> Recurrent NN</h1>
+<ul>
+<li>RNN maps input sequences to output space in a stateful way</li>
+<li>Output y(t) not only depends on x(t) but also a hidden state h(t)</li>
+<li>Hidden state gets updated over time as the sequence is processed</li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Vec2Seq (Sequence Generation)
+<ul>
+<li>Input is a vector</li>
+<li>Output is a sequence of arbitrary length</li>
+<li>Output sequence is generated one token at a time
+<ul>
+<li><span class="math inline">\(p(y_{1:T} | x) = \sum p(y_{1:T}, h_{1:T} | x)\)</span></li>
+<li><span class="math inline">\(p(y_{1:T} | x) = \sum \prod p(y_t | h_t) \times p(h_t | h_{t-1} , y_{t-1}, x)\)</span></li>
+<li><span class="math inline">\(p(y_t | h_t)\)</span> can be:
+<ul>
+<li>Categorical</li>
+<li>Gaussian</li>
+</ul></li>
+<li><span class="math inline">\(h_t = \phi( W_{xh}[x;y_{t-1}] + W_{hh}h_{t-1} + b_h)\)</span>
+<ul>
+<li>W(x,h) are input to hidden weights</li>
+<li>W(h,h) are hidden to hidden weights</li>
+</ul></li>
+</ul></li>
+<li>RNNs can have unbounded memory unlike Markov models</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Seq2Vec (Sequence Classification)
+<ul>
+<li>Input is a variable length sequence</li>
+<li>Output is a fixed dimension vector</li>
+<li>For example: Classification Task
+<ul>
+<li><span class="math inline">\(p(y|x_{1:T}) = \text{Cat}(y|S(WH_T))\)</span></li>
+</ul></li>
+<li>Results can be improved if model can depend on both past and future context
+<ul>
+<li>Apply bidirectional RNN</li>
+<li><span class="math inline">\(h^{\rightarrow} = \phi(W_{xh}^{\rightarrow}x_t + W_{hh}^{\rightarrow}h_t)\)</span></li>
+<li><span class="math inline">\(h^{\leftarrow} = \phi(W_{xh}^{\leftarrow}x_t + W_{hh}^{\leftarrow}h_t)\)</span></li>
+<li>Input to the linear layer is concatenation of the two hidden states</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Seq2Seq (Sequence Translation)
+<ul>
+<li>Input is a variable length sequence</li>
+<li>Output is a variable length sequence</li>
+<li>Aligned Case:
+<ul>
+<li>If input and output length are the same</li>
+<li>One label prediction per step</li>
+<li><span class="math inline">\(p(y_{1:T}|h_{1:T}) = \sum \prod p(y_t | h_t) I\{h_t = f(h_{t-1},x_t)\}\)</span></li>
+</ul></li>
+<li>Unaligned Case
+<ul>
+<li>If input and output length are not the same</li>
+<li>Encoder-Decoder architecture</li>
+<li>Encode the sequence to get the context vector</li>
+<li>Generate the output sequence using the decoder</li>
+<li>Teacher Forcing
+<ul>
+<li>While training the model, ground truth is fed to the model and not the labels generated by the model</li>
+<li>Teacher’s values are force fed to the model</li>
+<li>Sometimes results in poor test time performance</li>
+<li>Scheduled Sampling
+<ul>
+<li>Start with teacher forcing</li>
+<li>At regular intervals feed the samples generated from the model</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Backpropagation through Time (BPTT)
+<ul>
+<li>Unrolling the computation graph along time axis</li>
+<li><span class="math inline">\(h_t = W_{hx}x_t + W_{hh}h_{t-1} = f(x_t, h_{t-1}, w_h)\)</span></li>
+<li><span class="math inline">\(o_t = W_{ho}h_t = g(h_t, w_{oh})\)</span></li>
+<li><span class="math inline">\(L = {1 \over T}\sum l(y_t, o_t)\)</span></li>
+<li><span class="math inline">\({\delta L \over \delta w_h} = {1 \over T} \sum {\delta l \over \delta w_h}\)</span></li>
+<li><span class="math inline">\({\delta L \over \delta w_h} = {1 \over T} \sum {\delta l \over \delta o_t} {\delta o_t \over \delta h_t} {\delta h_t \over \delta w_h}\)</span></li>
+<li><span class="math inline">\({\delta h_t \over \delta w_h} = {\delta h_t \over \delta w_h} + {\delta h_t \over \delta h_{t-1}} {\delta h_{t-1} \over \delta w_h}\)</span></li>
+<li>Common to truncate the update to length of the longest subsequence in the batch</li>
+<li>As the sequence goes forward, the hidden state keeps getting multiplied by W(hh)</li>
+<li>Gradients can decay or explode as we go backwards in time</li>
+<li>Solution is to use additive rather than multiplicative updates</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Gated Recurrent Units
+<ul>
+<li>Learn when to update the hidden state by using a gating unit</li>
+<li>Update Gate: Selectively remember important pieces of information
+<ul>
+<li><span class="math inline">\(Z_t = \sigma(W_{xz} X_t + W_{hz} H_{t-1})\)</span></li>
+</ul></li>
+<li>Reset Gate: Forget things and reset the hidden state when information is no longer useful
+<ul>
+<li><span class="math inline">\(R_t = \sigma(W_{rx} X_t + W_{rh} H_{t-1})\)</span></li>
+</ul></li>
+<li>Candidate State
+<ul>
+<li>Combine old memories that are not reset</li>
+<li><span class="math inline">\(\tilde H_t = \tanh ( W_{xh} X_t + W_{hh} R_t \times H_{t-1})\)</span></li>
+<li>If reset is close to 1, standard RNN</li>
+<li>If reset close to 0, standard MLP</li>
+<li>Captures new short term information</li>
+</ul></li>
+<li>New State
+<ul>
+<li><span class="math inline">\(H_t = Z_t H_{t-1} + (1 - Z_t) \tilde H_t\)</span></li>
+<li>Captures long term dependecies</li>
+<li>If Z is close to 1, the hidden state carries as is and new inputs are ignored</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Long Short Term Memory (LSTM)
+<ul>
+<li>More sophisticated version of GRU</li>
+<li>Augment the hidden state with memory cell</li>
+<li>Three gates control this cell
+<ul>
+<li>Input: <span class="math inline">\(I_t = \sigma( W_{ix} X_t + W_{ih} H_{t-1})\)</span>, what gets read in</li>
+<li>Output: <span class="math inline">\(O_t = \sigma(W_{ox} X_t + W_{oh} H_{t-1})\)</span>, what gets read out</li>
+<li>Forget: <span class="math inline">\(F_t = \sigma (W_{fx} X_t + W_{fh} H_{t-1})\)</span>, when the cell is reset</li>
+</ul></li>
+<li>Candidate Cell State
+<ul>
+<li><span class="math inline">\(\tilde C_t = \tanh ( W_{cx} X_t + W_{ch} H_{t-1})\)</span></li>
+</ul></li>
+<li>Actual Candidate:
+<ul>
+<li><span class="math inline">\(C_t = F_{t} \times C_{t-1} + I_t \times \tilde C_{t}\)</span></li>
+</ul></li>
+<li>Hidden State
+<ul>
+<li><span class="math inline">\(H_t = O_t \times \tanh(C_t)\)</span></li>
+<li>Both output and hidden state for next time step</li>
+<li>Hence, captures short term memory</li>
+</ul></li>
+<li>The memory cell state captures long term memory</li>
+<li>Peephole Connections
+<ul>
+<li>Pass cell state as additional input to the gates</li>
+</ul></li>
+<li><em>How does LSTM solve vanishing gradients problem?</em></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Decoding
+<ul>
+<li>Output is generated one token at a time</li>
+<li>Simple Solution: Greedy Decoding
+<ul>
+<li>Argmax over vocab at each step</li>
+<li>Keep sampling unless <EOS> token output</li>
+</ul></li>
+<li>May not be globally optimal path</li>
+<li>Alternative: Beam Search
+<ul>
+<li>Compute top-K candidate outputs at each step</li>
+<li>Expand each one in V possible ways</li>
+<li>Total VK candidates generated</li>
+</ul></li>
+<li>GPT used top-k and top-p sampling
+<ul>
+<li>Top-K sampling: Redistribute the probability mass</li>
+<li>Top-P sampling: Sample till the cumulative probability exceeds p</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Attention
+<ul>
+<li>In RNNs, hidden state linearly combines the inputs and then sends them to an activation function</li>
+<li>Attention mechanism allows for more flexibility.
+<ul>
+<li>Suppose there are m feature vectors or values</li>
+<li>Model decides which to use based on the input query vector q and its similarity to a set of m keys</li>
+<li>If query is most similar to key i, then we use value i.</li>
+</ul></li>
+<li>Attention acts as a soft dictionary lookup
+<ul>
+<li>Compare query q to each key k(i)</li>
+<li>Retrieve the corresponding value v(i)</li>
+<li>To make the operation differentiable:
+<ul>
+<li>Compute a convex combination</li>
+</ul></li>
+<li><span class="math inline">\(Attn(q,(k_1,v_1),(k_2, v_2)...,(k_m,v_m)) = \sum_{i=1}^m \alpha_i (q, \{k_i\}) v_i\)</span>
+<ul>
+<li><span class="math inline">\(\alpha_i (q, \{k_i\})\)</span> are the attention weights</li>
+</ul></li>
+<li>Attention weights are computed from an attention score function <span class="math inline">\(a(q,k_i)\)</span>
+<ul>
+<li>Computes the similarity between query and key</li>
+</ul></li>
+<li>Once the scores are computed, use soft max to impose distribution</li>
+<li>Masking helps in ignoring the index which are invalid while computing soft max</li>
+<li>For computational efficiency, set the dim of query and key to be same (say d)
+<ul>
+<li>The similarity is given by dot product</li>
+<li>The weights are randomly initialized</li>
+<li>The expected variance of dot product will be d.</li>
+<li>Scale the dot product by <span class="math inline">\(\sqrt d\)</span></li>
+<li>Scaled Dot-Product Attention
+<ul>
+<li>Attention Weight: <span class="math inline">\(a(q,k) = {q^Tk \over \sqrt d}\)</span></li>
+<li>Scaled Dot Product Attention: <span class="math inline">\(Attn(Q,K,V) = S({QK^T \over \sqrt d})V\)</span></li>
+</ul></li>
+</ul></li>
+<li>Example: Seq2Seq with Attention
+<ul>
+<li>Consider encoder-decoder architecture</li>
+<li>In the decoder:
+<ul>
+<li><span class="math inline">\(h_t = f(h_{t-1}, c)\)</span></li>
+<li>c is the context vector from encoder</li>
+<li>Usually the last hidden state of the encoder</li>
+</ul></li>
+<li>Attention allows the decoder to look at all the input words
+<ul>
+<li>Better alignment between source and target</li>
+</ul></li>
+<li>Make the context dynamic
+<ul>
+<li>Query: previous hidden state of the decoder</li>
+<li>Key: all the hidden states from the encoder</li>
+<li>Value: all the hidden states from the encoder</li>
+<li><span class="math inline">\(c_t = \sum_{i=1}^T \alpha_i(h_{t-1}^d, \{h_i^e\})h_i^e\)</span></li>
+</ul></li>
+<li>If RNN has multiple hidden layers, usually take the top most layer</li>
+<li>Can be extended to Seq2Vec models</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Transformers
+<ul>
+<li>Transformers are seq2seq models using attention in both encoder and decoder steps</li>
+<li>Eliminate the need for RNNs</li>
+<li>Self Attention:
+<ul>
+<li>Modify the encoder such that it attends to itself</li>
+<li>Given a sequence of input tokens <span class="math inline">\([x_1, x_2, x_3...,x_n]\)</span></li>
+<li>Sequence of output tokens: <span class="math inline">\(y_i = Attn(x_i, (x_1,x_1), (x_2, x_2)...,(x_n, x_n))\)</span>
+<ul>
+<li>Query is xi</li>
+<li>Keys and Values are are x1,x2…xn (all valid inputs)</li>
+</ul></li>
+<li>In the decoder step:
+<ul>
+<li><span class="math inline">\(y_i = Attn(y_{i-1}, (y_1,y_1), (y_2, y_2)...(y_{i-1}, y_{i-1}))\)</span></li>
+<li>Each new token generated has access to all the previous output</li>
+</ul></li>
+</ul></li>
+<li>Multi-Head Attention
+<ul>
+<li>Use multiple attention matrices to capture different nuances and similarities</li>
+<li><span class="math inline">\(h_i = Attn(W_i^q q_i, (W_i^k k_i, W_i^v v_i))\)</span></li>
+<li>Stack all the heads together and use a projection matrix to get he output</li>
+<li>Set <span class="math inline">\(p_q h = p_k h = p_v h = p_o\)</span> for parallel computation **How?</li>
+</ul></li>
+<li>Positional Encoding
+<ul>
+<li>Attention is permutation invariant</li>
+<li>Positional encodings help overcome this</li>
+<li>Sinusoidal Basis</li>
+<li>Positional Embeddings are combined with original input X → X + P</li>
+</ul></li>
+<li>Combining All the Blocks
+<ul>
+<li>Encoder
+<ul>
+<li>Input: $ Z = LN(MHA(X,X,X) + X$</li>
+<li>Encoder: <span class="math inline">\(E = LN(FF(Z) + Z)\)</span>
+<ul>
+<li>For the first layer:
+<ul>
+<li>$ Z = ((X))$</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>In general, model has N copies of the encoder</li>
+<li>Decoder
+<ul>
+<li>Has access to both: encoder and previous tokens</li>
+<li>Input: $ Z = LN(MHA(X,X,X) + X$</li>
+<li>Input $ Z = LN(MHA(Z,E,E) + Z$</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Representation Learning
+<ul>
+<li>Contextual Word Embeddings
+<ul>
+<li>Hidden state depends on all previous tokens</li>
+<li>Use the latent representation for classification / other downstream tasks</li>
+<li>Pre-train on a large corpus</li>
+<li>Fine-tune on small task specific dataset</li>
+<li>Transfer Learning</li>
+</ul></li>
+<li>ELMo
+<ul>
+<li>Embeddings from Language Model</li>
+<li>Fit two RNN models
+<ul>
+<li>Left to Right</li>
+<li>Right to Left</li>
+</ul></li>
+<li>Combine the hidden state representations to fetch embedding for each word</li>
+</ul></li>
+<li>BERT
+<ul>
+<li>Bi-Directional Encoder Representations from Transformers</li>
+<li>Pre-trained using Cloze task (MLM i.e. Masked Language Modeling)</li>
+<li>Additional Objective: Next sentence Prediction</li>
+</ul></li>
+<li>GPT
+<ul>
+<li>Generative Pre-training Transformer</li>
+<li>Causal model using Masked Decoder</li>
+<li>Train it as a language model on web text</li>
+</ul></li>
+<li>T5
+<ul>
+<li>Text-to-Text Transfer Transformer</li>
+<li>Single model to perform multiple tasks</li>
+<li>Tell the task to perform as part of input sequence</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="convolution-nn.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exemplar-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

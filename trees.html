@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 16 Trees | Notes on ProbML</title>
+  <meta name="description" content=" 16 Trees | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 16 Trees | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 16 Trees | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exemplar-methods.html"/>
+
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="trees" class="section level1" number="16">
+<h1><span class="header-section-number"> 16</span> Trees</h1>
+<ul>
+<li>Recursively partition the input space and define a local model in the resulting region of the input space
+<ul>
+<li>Node i</li>
+<li>Feature dimension d_i is compared to threshold t_i
+<ul>
+<li><span class="math inline">\(R_i = \{x : d_1 \le t1, d_2 \le t_2\}\)</span></li>
+<li>Axis parallel splits</li>
+</ul></li>
+<li>At leaf node, model specifies the predicted output for any input that falls in the region
+<ul>
+<li><span class="math inline">\(w_1 = {\sum_{N} y_n I \{x \in R_1\} \over \sum_{N} I \{x \in R_1\}}\)</span></li>
+</ul></li>
+<li>Tree structure can be represented as
+<ul>
+<li><span class="math inline">\(f(x, \theta) = \sum_J w_j I\{x \in R_j\}\)</span></li>
+<li>where j denotes a leaf node</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Model Fitting
+<ul>
+<li><span class="math inline">\(L(\theta) = \sum_J \sum_{i \in R_j} (y_i, w_j)\)</span></li>
+<li>The tree structure is non-differentiable</li>
+<li>Greedy approach to grow the tree</li>
+<li>C4.5, ID3 etc.</li>
+<li>Finding the split
+<ul>
+<li><span class="math inline">\(L(\theta) = {|D_l \over |D|} c_l + {|D_r \over |D|} c_r\)</span></li>
+<li>Find the split such that the new weighted overall cost after splitting is minimized</li>
+<li>Looks for binary splits because of data fragmentation</li>
+</ul></li>
+<li>Determining the cost
+<ul>
+<li>Regression: Mean Squared Error</li>
+<li>Classification:
+<ul>
+<li>Gini Index: <span class="math inline">\(\sum \pi_ic (1 - \pi_ic)\)</span></li>
+<li><span class="math inline">\(\pi_ic\)</span> probability that the observation i belongs to class c</li>
+<li><span class="math inline">\(1 - \pi_ic\)</span> probability of misclassification</li>
+<li>Entropy: <span class="math inline">\(\sum \pi_{ic} \log \pi_{ic}\)</span></li>
+</ul></li>
+</ul></li>
+<li>Regularization
+<ul>
+<li>Approach 1: Stop growing the tree according to some heuristic
+<ul>
+<li>Example: Tree reaches some maximum depth</li>
+</ul></li>
+<li>Approach 2: Grow the tree to its maximum possible depth and prune it back</li>
+</ul></li>
+<li>Handling missing features
+<ul>
+<li>Categorical: Consider missing value as a new category</li>
+<li>Continuous: Surrogate splits
+<ul>
+<li>Look for variables that are most correlated to the feature used for split</li>
+</ul></li>
+</ul></li>
+<li>Advantages of Trees
+<ul>
+<li>Easy to interpret</li>
+<li>Minimal data preprocessing is required</li>
+<li>Robust to outliers</li>
+</ul></li>
+<li>Disadvantages of Trees
+<ul>
+<li>Easily overfit</li>
+<li>Perform poorly on distributional shifts</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Ensemble Learning
+<ul>
+<li>Decision Trees are high variance estimators</li>
+<li>Average multiple models to reduce variance</li>
+<li><span class="math inline">\(f(y| x) = {1 \over M} \sum f_m (y | x)\)</span></li>
+<li>In case of classification, take majority voting
+<ul>
+<li><span class="math inline">\(p = Pr(S &gt; M/2) = 1 - \text{Bin}(M, M/2, \theta)\)</span></li>
+<li>Bin(.) if the CDF of the binomial distribution</li>
+<li>If the errors of the models are uncorrelated, the averaging of classifiers can boost the performance</li>
+</ul></li>
+<li>Stacking
+<ul>
+<li>Stacked Generalization</li>
+<li>Weighted Average of the models</li>
+<li><span class="math inline">\(f(y| x) = {1 \over M} \sum w_m f_m (y | x)\)</span></li>
+<li>Weights have to be learned on unseen data</li>
+<li>Stacking is different from Bayes averaging
+<ul>
+<li>Weights need not add up to 1</li>
+<li>Only a subset of hypothesis space considered in stacking</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Bagging
+<ul>
+<li>Bootstrap aggregation</li>
+<li>Sampling with replacement
+<ul>
+<li>Start with N data points</li>
+<li>Sample with replacement till N points are sampled</li>
+<li>Probability that a point is never selected
+<ul>
+<li><span class="math inline">\((1 - {1 \over N})^N\)</span></li>
+<li>As N → <span class="math inline">\(\infty\)</span>, the value is roughly 1/e (37% approx)</li>
+</ul></li>
+</ul></li>
+<li>Build different estimators of these sampled datasets</li>
+<li>Model doesn’t overly rely on any single data point</li>
+<li>Evaluate the performance on the 37% excluded data points
+<ul>
+<li>OOB (out of bag error)</li>
+</ul></li>
+<li>Performance boost relies on de-correlation between various models
+<ul>
+<li>Reduce the variance is predictions</li>
+<li>The bias remains put</li>
+<li><span class="math inline">\(V = \rho \sigma ^ 2 + {(1 - \rho) \over B} \sigma ^2\)</span></li>
+<li>If the trees are IID, correlation is 0, and variance is 1/B</li>
+</ul></li>
+<li>Random Forests
+<ul>
+<li>De-correlate the trees further by randomizing the splits</li>
+<li>A random subset of features chosen for split at each node</li>
+<li>Extra Trees: Further randomization by selecting subset of thresholds</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Boosting
+<ul>
+<li>Sequentially fitting additive models
+<ul>
+<li>In the first round, use original data</li>
+<li>In the subsequent rounds, weight data samples based on the errors
+<ul>
+<li>Misclassified examples get more weight</li>
+</ul></li>
+</ul></li>
+<li>Even if each single classifier is a weak learner, the above procedure makes the ensemble a strong classifier</li>
+<li>Boosting reduces the bias of the individual weak learners to result in an overall strong classifier</li>
+<li>Forward Stage-wise Additive Modeling
+<ul>
+<li><span class="math inline">\((\beta_m, \theta_m) = \arg \min \sum l(y_i, f_{m-1}(x_i, \theta_{m-1}) + \beta_m F_m(x_i, \theta))\)</span></li>
+<li><span class="math inline">\(f_m(x_i, \theta_m) = f_{m-1}(x_i, \theta_{m-1}) + \beta_m F_m(x_i, \theta_m)\)</span></li>
+</ul></li>
+<li>Example: Least Square Regression
+<ul>
+<li><span class="math inline">\(l(y_i, f_{m-1}(x_i) + \beta_m F_m(x_i)) = (y_i - f_{m-1}(x_i) - \beta_m F_m(x_i))^2\)</span></li>
+<li><span class="math inline">\(l(y_i, f_{m-1}(x_i) + \beta_m F_m(x_i)) = (r_im - \beta_m F_m(x_i))^2\)</span></li>
+<li>Subsequent Trees fit on the residuals from previous rounds</li>
+</ul></li>
+<li>Example: AdaBoost
+<ul>
+<li>Classifier that outputs {-1, +1}</li>
+<li>Loss: Exponential Loss
+<ul>
+<li><span class="math inline">\(p(y=1|x) = {\exp F(x) \over \exp -F(x) + \exp F(x)}\)</span></li>
+<li><span class="math inline">\(l(y_i, x_i) = \exp(- \tilde y F(x_i))\)</span></li>
+</ul></li>
+<li><span class="math inline">\(l_m = \sum \exp ( - \tilde y_i f_{m-1} (x_i) - \tilde y_i \beta F_m(x_i)) = \sum w_{im} \exp (- \tilde y_i \beta F_m(x_i))\)</span></li>
+<li><span class="math inline">\(l_m = \exp^{-\beta} \sum_{\tilde y = F(x)} w_{im} + \exp^\beta \sum_{\tilde y != F(x)} w_{im}\)</span></li>
+<li><span class="math inline">\(F_m = \arg \min \sum w_{im} I\{y_i \ne F(x)\}\)</span></li>
+<li>Minimize the classification error on re-weighted dataset</li>
+<li>The weights are exponentially increased for misclassified examples</li>
+<li>LogitBoost an extension of AdaBoost
+<ul>
+<li>Newton update on log-loss</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Gradient Boosting
+<ul>
+<li>No need to derive different algorithms for different loss functions</li>
+<li>Perform gradient descent in the space of functions</li>
+<li>Solve for: $ f = L(f)$
+<ul>
+<li>Functions have infinite dimensions</li>
+<li>Represent them by their values on the training set</li>
+<li>Functon: <span class="math inline">\(f = (f(x_1), f(x_2)...,f(x_n))\)</span></li>
+<li>Gradient: <span class="math inline">\(g_{im} = [ {\delta l(y_i, f(x_i)) \over \delta f(x_i)}]\)</span></li>
+<li>Update: <span class="math inline">\(f_m = f_{m-1} - \beta_m g_m\)</span></li>
+</ul></li>
+<li>In the current form, the optimization is limited to the set of training points</li>
+<li>Need a function that can generalize</li>
+<li>Train a weak learner that can approximate the negative gradient signal
+<ul>
+<li><span class="math inline">\(F_m = \arg\min \sum (-g_m -F(x_i))^2\)</span></li>
+<li>Use a shrinkage factor for regularization</li>
+</ul></li>
+<li>Stochastic Gradient Boosting
+<ul>
+<li>Data Subsampling for faster computation and better generalization</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>XGBoost
+<ul>
+<li>Extreme Gradient Boosting</li>
+<li>Add regularization to the objective</li>
+<li><span class="math inline">\(L(f) = \sum l(y_i, f(x_i)) + \Omega(f)\)</span></li>
+<li><span class="math inline">\(\Omega(f) = \gamma J + {1 \over 2} \lambda \sum w_j^2\)</span></li>
+<li>Consider the forward stage wise additive modeling</li>
+<li><span class="math inline">\(L_m(f) = \sum l(y_i, f_{m-1}(x_i) + F(x_i)) + \Omega(f)\)</span></li>
+<li>Use Taylor’s approximation on F(x)</li>
+<li><span class="math inline">\(L_m(f) = \sum l(y_i, f_{m-1}(x_i)) + g_{im} F_m(x_i) + {1 \over 2} h_{im} F_m(x_i)^2) + \Omega(f)\)</span>
+<ul>
+<li>g is the gradient and h is the hessian</li>
+</ul></li>
+<li>Dropping the constant terms and using a decision tree form of F</li>
+<li><span class="math inline">\(F(x_{ij}) = w_{j}\)</span></li>
+<li><span class="math inline">\(L_m = \sum_j (\sum_{i \in I_j} g_{im}w_j) + (\sum_{i \in I_j} h_{im} w_j^2) + \gamma J + {1 \over 2} \lambda \sum w_j^2\)</span></li>
+<li>Solution to the Quadratic Equation:
+<ul>
+<li><span class="math inline">\(G_{jm} = \sum_{i \in I_j} g_{im}\)</span></li>
+<li><span class="math inline">\(H_{jm} = \sum_{i \in I_j} h_{im}\)</span></li>
+<li><span class="math inline">\(w^* = {- G \over H + \lambda}\)</span></li>
+<li><span class="math inline">\(L(w^*) = - {1 \over 2} \sum_J {G^2_{jm} \over H_{jm} + \lambda} + \gamma J\)</span></li>
+</ul></li>
+<li>Condition for Splitting the node:
+<ul>
+<li><span class="math inline">\(\text{gain} = [{G^2_L \over H_L + \lambda} + {G^2_R \over H_R + \lambda} - {G^2_L + G^2_R \over H_R + H_L + \lambda}] - \gamma\)</span></li>
+<li>Gamma acts as regularization</li>
+<li>Tree wont split if the gain from split is less than gamma</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Feature Importance
+<ul>
+<li><span class="math inline">\(R_k(T) = \sum_J G_j I(v_j = k)\)</span></li>
+<li>G is the gain in accuracy / reduction in cost</li>
+<li>I(.) returns 1 if node uses the feature</li>
+<li>Average the value of R over the ensemble of trees</li>
+<li>Normalize the values</li>
+<li>Biased towards features with large number of levels</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Partial Dependency Plot
+<ul>
+<li>Assess the impact of a feature on output</li>
+<li>Marginalize all other features except k</li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exemplar-methods.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

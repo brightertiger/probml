@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 8 Optimization | Notes on ProbML</title>
+  <meta name="description" content=" 8 Optimization | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 8 Optimization | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 8 Optimization | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="information-theory.html"/>
+<link rel="next" href="discriminant-analysis.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="optimization" class="section level1" number="8">
+<h1><span class="header-section-number"> 8</span> Optimization</h1>
+<ul>
+<li>Optimization Problem: Try to find values for a set of variables that minimize/maximize a scalar valued objective function
+<ul>
+<li><span class="math inline">\(\arg \min_{\theta}L(\theta)\)</span></li>
+</ul></li>
+<li>The point that satisfies the optimization problem is called global optimum</li>
+<li>Local optimum is a point that has optimal objective value compared to nearby points.</li>
+<li>Optimality Conditions
+<ul>
+<li>gradient <span class="math inline">\(g(\theta) = \Delta L(\theta)\)</span> is zero</li>
+<li>hessain <span class="math inline">\(H(\theta) = \Delta^2 L(\theta)\)</span> is positive definite</li>
+</ul></li>
+<li>Unconstrained Optimization: Finding any value in parameter space that minimizes the loss</li>
+<li>Constrained Optimization: Finding optimal value in a feasible set that is subset of the parameter space. <span class="math inline">\(\mathit C \in \{\theta : g_j(\theta) \le 0 : j \in I, h_k(\theta)= 0 : k \in E \}\)</span>
+<ul>
+<li>I is the set of ineuqliaty constraints</li>
+<li>K is the set of equality constraints</li>
+<li>If there are too many constraints the feasible set may become empty.</li>
+</ul></li>
+<li>Smooth Optimization: Objective and constraints are continuously differentiable</li>
+<li>Lipschitz Constant: <span class="math inline">\(|f(x_1) - f(x_2)| \le L|x_1 - x_2|\)</span>
+<ul>
+<li>Function cannot change by more than L units if input changes by 1 unit</li>
+</ul></li>
+<li>Non-smooth Optimization: Some points where gradient of the objective or the constraints is not well defined</li>
+<li>Composite Objective: Contains both smooth and non-smooth terms.</li>
+<li>Subgradient: Generalized notion of derivative to work with functions having local discontinuities.</li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>First-Order Optimization Methods
+<ul>
+<li>Leverage first-order derivatives of the objective function</li>
+<li>Ignore the curvature information</li>
+<li><span class="math inline">\(\theta_t = \theta_{t-1} + \eta_t d_t\)</span></li>
+<li>d is the descent direction, <span class="math inline">\(\eta\)</span> is the step size</li>
+<li>Steepest Descent: direction opposite to the gradient g</li>
+<li>Step Size: controls the amount to move in the descent direction
+<ul>
+<li>Constant Step Size
+<ul>
+<li>incorrect values can lead to oscillations, slow convergence</li>
+</ul></li>
+<li>Line Search
+<ul>
+<li>set as a 1d minimization problem to select the optimal value</li>
+</ul></li>
+<li>Learning rate schedule must respect Robbins-Monro condition
+<ul>
+<li><span class="math inline">\({\sum \eta^2 \over \sum \eta} \rightarrow 0 \, \text{as} \, \eta \rightarrow 0\)</span></li>
+</ul></li>
+</ul></li>
+<li>Momentum
+<ul>
+<li>Gradient Descent slow across lat regions of the loss landscape</li>
+<li>Heavy Ball or Momentum helps move faster along the directions that were previously good.</li>
+<li><span class="math inline">\(m_t = \beta m_{t-1} + g_{t-1}\)</span></li>
+<li><span class="math inline">\(\theta_t = \theta_{t-1} + \eta_t m_t\)</span></li>
+<li>Momentum is essentially EWMA of gradients</li>
+</ul></li>
+<li>Nestrov Momentum
+<ul>
+<li>Momentum may not slow down enough at the bottom causing oscillation</li>
+<li>Nestrov solves for that by adding a lookahead term</li>
+<li><span class="math inline">\(m_{t+1} = \beta m_t - \eta_t \Delta L(\theta_t + \beta m_t)\)</span></li>
+<li>It updates the momentum using gradient at the predicted new location</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Second-Order Optimization Methods
+<ul>
+<li>Gradients are cheap to compute and store but lack curvature information</li>
+<li>Second-order methods use Hessian to achieve faster convergence</li>
+<li>Newton’s Method:
+<ul>
+<li>Second-order Taylor series expansion of objective</li>
+<li><span class="math inline">\(L(\theta) = L(\theta_t) + g(\theta - \theta_t) + {1 \over 2} H (\theta - \theta_t)^2\)</span></li>
+<li>Descent Direction: <span class="math inline">\(\theta = \theta_t - H^{-1} g\)</span></li>
+</ul></li>
+<li>BFGS:
+<ul>
+<li>Quasi-Newton method</li>
+<li>Hessian expensive to compute</li>
+<li>Approximate Hessian by using the gradient vectors</li>
+<li>Memory issues</li>
+<li>L-BFGS is limited memory BFGS</li>
+<li>Uses only recent gradients for calculating Hessian</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Stochastic Gradient Descent
+<ul>
+<li>Goal is to minimize average value of a function with random inputs</li>
+<li><span class="math inline">\(L(\theta) = \mathbf E_z[L(\theta, z)]\)</span></li>
+<li>Random variable Z is independent of parameters theta</li>
+<li>The gradient descent estimate is therefore unbiased</li>
+<li>Empirical Risk Minimization (ERM) involves minimizing a finite sum problem
+<ul>
+<li><span class="math inline">\(L(\theta) = {1 \over N}\sum l(y, f(x(\theta))\)</span></li>
+</ul></li>
+<li>Gradient calculation requires summing over N</li>
+<li>It can be approximated by summing over minibatch B &lt;&lt; N in case of random sampling</li>
+<li>This will give unbiased approximation and results in faster convergence</li>
+</ul></li>
+<li>Variance Reduction
+<ul>
+<li>Reduce the variance in gradient estimates by SGD</li>
+<li>Stochastic Variance Reduced Gradient (SVRG)
+<ul>
+<li>Adjust the stochastic estimates by those calculated on full batch</li>
+</ul></li>
+<li>Stochastic Averaged Gradient Accelerated (SAGA)
+<ul>
+<li>Aggregate the gradients to calculate average values</li>
+<li><span class="math inline">\(g_t = \Delta L(\theta) - g_{local} + g_{avg}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p>Optimizers</p>
+<ul>
+<li>AdaGrad (Adaptive Gradient)
+<ul>
+<li>Sparse gradients corresponding to features that are rarely present</li>
+<li><span class="math inline">\(\theta_{t+1} = \theta_t -\eta_t {1 \over \sqrt{s_t +\epsilon}} g_t\)</span></li>
+<li><span class="math inline">\(s_t = \sum g^2\)</span></li>
+<li>It results in adaptive learning rate</li>
+<li>As the denominator grows, the effective learning rate drops</li>
+</ul></li>
+<li>RMSProp
+<ul>
+<li>Uses EWMA instead of sum in AdaGrad</li>
+<li><span class="math inline">\(s_t = \beta s_{t-1} + (1-\beta)g^2_t\)</span></li>
+<li>Prevents from s to grow infinitely large</li>
+</ul></li>
+<li>AdaDelta
+<ul>
+<li>Like RMSProp, uses EWMA on previous gradients</li>
+<li>But also uses EWMA on updates</li>
+<li><span class="math inline">\(\delta_t = \beta \delta_{t-1} + (1 - \beta) (\Delta \theta^2)\)</span></li>
+<li><span class="math inline">\(\theta_{t+1} = \theta_t -\eta_t {\sqrt{\delta_t +\epsilon} \over \sqrt{s_t +\epsilon}} g_t\)</span></li>
+</ul></li>
+<li>Adam
+<ul>
+<li>Adaptive Moment Estimation</li>
+<li>Combines RMSProp with momentum</li>
+<li><span class="math inline">\(m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t\)</span></li>
+<li><span class="math inline">\(s_t = \beta_1 s_{t-1} + (1 - \beta_1) g_t^2\)</span></li>
+<li><span class="math inline">\(\Delta \theta = \eta {1 \over \sqrt s_t + e} m_t\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p>Constrained Optimization</p>
+<ul>
+<li>Lagrange Multipliers
+<ul>
+<li>Convert constrained optimization problem (with equality constraints) to an unconstrained optimization problem</li>
+<li>Assume the constraint is <span class="math inline">\(h(\theta) = 0\)</span></li>
+<li><span class="math inline">\(\nabla h(\theta)\)</span> is orthogonal to the plane <span class="math inline">\(h(\theta) = 0\)</span>
+<ul>
+<li>First order Taylor expansion</li>
+</ul></li>
+<li>Also, <span class="math inline">\(\nabla L(\theta)\)</span> is orthogonal to the plane <span class="math inline">\(h(\theta) = 0\)</span> at the optimum
+<ul>
+<li>Otherwise, moving along the constraint can improve the objective value</li>
+</ul></li>
+<li>Hence, at the optimal solution: <span class="math inline">\(\nabla L(\theta) = \lambda \nabla h(\theta)\)</span>
+<ul>
+<li><span class="math inline">\(\lambda\)</span> is the Lagrangian multiplier</li>
+</ul></li>
+<li>Convert the above identity to an objective
+<ul>
+<li><span class="math inline">\(L(\theta, \lambda) = L(\theta) - \lambda h(\theta)\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>KKT Conditions
+<ul>
+<li>Generalize the concept of Lagrange multiplier to inequality constraints</li>
+<li>Assume the inequality constraint: <span class="math inline">\(g(\theta) &lt; 0\)</span></li>
+<li><span class="math inline">\(L(\theta, \mu) = L(\theta) + \mu g(\theta)\)</span></li>
+<li><span class="math inline">\(\min L(\theta) \rightarrow \min_{\theta} \max_{\mu \ge 0} L(\theta, \mu)\)</span>
+<ul>
+<li>Competing objectives</li>
+<li><span class="math inline">\(\mu\)</span> is the penalty for violating the constraint.</li>
+<li>If <span class="math inline">\(g(\theta) &gt; 0\)</span>, then the objective becomes <span class="math inline">\(\infty\)</span></li>
+</ul></li>
+<li>Complementary Slackness
+<ul>
+<li>If the constraint is active, <span class="math inline">\(g(\theta) = 0, \mu &gt; 0\)</span></li>
+<li>If the constraint is inactive, <span class="math inline">\(g(\theta) &lt; 0, \mu = 0\)</span></li>
+<li><span class="math inline">\(\mu * g = 0\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Linear Programming
+<ul>
+<li>Feasible set is a convex polytope</li>
+<li>Simplex algorithm moves from vertex to vertex of the polytope seeking the edge that improves the objective the most.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Proximal Gradient Descent
+<ul>
+<li>Composite objective with smooth and rough parts</li>
+<li>Proximal Gradient Descent calculates the gradients of the smooth part and projects the update into a space the respects the rough part</li>
+<li>L1 Regularization is sparsity inducing. Can be optimized using proximal gradient descent. (0,1) is preferred vs <span class="math inline">\(1 \over \sqrt 2\)</span>, <span class="math inline">\(1 \over \sqrt 2\)</span>. L2 is agnostic between the two.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li><p>Expectation Maximization Algorithm</p>
+<ul>
+<li>Compute MLE / MAP in cases where there is missing data or hidden variables.</li>
+<li>E Step: Estimates hidden variables / missing values</li>
+<li>M Step: Uses observed data to calculate MLE / MAP</li>
+<li><span class="math inline">\(LL(\theta) = \sum \log p( y | \theta) = \sum \log \sum p(y, z | \theta)\)</span></li>
+<li>z is the hidden / latent variable</li>
+<li>Using Jensen’s inequality for convex functions
+<ul>
+<li><span class="math inline">\(LL(\theta) \ge \sum \sum q(z) \log p (y | \theta, z)\)</span></li>
+<li>q(z) is the prior estimate over hidden variable</li>
+<li>log(p) is the conditional likelihood</li>
+<li>Evidence lower bound or ELBO method</li>
+</ul></li>
+<li>EMM for GMM
+<ul>
+<li>E Step: Compute the responsibility of cluster k for generating the data point</li>
+<li>M Step: Maximize the computed log-likelihood</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Simulated Annealing
+<ul>
+<li>Stochastic Local Search algorithm that optimizes black-box functions whose gradients are intractable.</li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="information-theory.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="discriminant-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

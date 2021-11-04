@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 5 Statistics | Notes on ProbML</title>
+  <meta name="description" content=" 5 Statistics | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 5 Statistics | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 5 Statistics | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="probability-1.html"/>
+<link rel="next" href="decision-theory.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistics" class="section level1" number="5">
+<h1><span class="header-section-number"> 5</span> Statistics</h1>
+<ul>
+<li>Inference is the process of quantifying uncertainty about an unknown quantity estimated from finite sample of data</li>
+</ul>
+<p><strong>Maximum Likelihood Estimation</strong></p>
+<ul>
+<li>Pick parameters that assign highest probability to training data
+<ul>
+<li><span class="math inline">\(\theta_{MLE} = \arg \max p(D | \theta) = \prod p(y | x, \theta)\)</span></li>
+</ul></li>
+<li>MLE can be factorized because of IID assumption</li>
+<li>Maximizing MLE is equivalent to minimizing NLL
+<ul>
+<li><span class="math inline">\(\text{NLL}(\theta) = -\log p(D | \theta)\)</span></li>
+</ul></li>
+<li>For unsupervised learning MLE is unconditional.
+<ul>
+<li><span class="math inline">\(\theta_{MLE} = \arg\max p( x | \theta)\)</span></li>
+</ul></li>
+<li>Justification for MLE
+<ul>
+<li>Bayesian MAP estimate with uninformative uniform prior
+<ul>
+<li><span class="math inline">\(\theta_{MAP} = \arg\max p(\theta | D) = \arg \max p(D | \theta) + p(\theta)\)</span></li>
+</ul></li>
+<li>KL Divergence: MLE brings predicted distribution close to empirical ditribution
+<ul>
+<li><span class="math inline">\(KL(p||q) = H(p) - H(p,q)\)</span></li>
+<li>Cross-entropy term in KL-Divergence corresponds to KL-Divergence</li>
+</ul></li>
+</ul></li>
+<li>Sufficient Statistics of the data summarize all the information needed.
+<ul>
+<li>N0 (negative # samples) and N1 (positive # samples) in case of Bernoulli Distribution</li>
+</ul></li>
+<li>MLE Examples
+<ul>
+<li>Bernoulli Distribution
+<ul>
+<li><span class="math inline">\(NLL(\theta) = N_1 \log(\theta) - N_0 \log(1-\theta)\)</span></li>
+<li><span class="math inline">\(\Delta NLL \Rightarrow \theta = N_1 / (N_0 + N_1)\)</span></li>
+</ul></li>
+<li>Categorical DIstribution
+<ul>
+<li>Add unity contraint as Lagrangian</li>
+<li><span class="math inline">\(NLL(\theta) = \sum N_k \log(\theta) + \lambda (\sum \theta_k -1))\)</span></li>
+</ul></li>
+<li>Gaussian Distribution
+<ul>
+<li><span class="math inline">\(NLL(\theta) = {1 \over 2\sigma^2 }\sum \log(y - \mu)^2 + {N \over 2} log (2\pi \sigma^2)\)</span></li>
+<li>Sample mean and sample variance become sufficient statistics</li>
+</ul></li>
+<li>Linear Regression
+<ul>
+<li><span class="math inline">\(p(y | x; \theta) = \mathcal N (y | wx +b, \sigma^2)\)</span></li>
+<li><span class="math inline">\(NLL \propto \sum (y - wx - b) ^ 2\)</span></li>
+<li>Quadratic Loss is a good choice for linear regression</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Empirical Risk Minimization</strong></p>
+<ul>
+<li>Empirical Risk Minimization is the expected loss where the expectation is taken wrt to empirical distribution</li>
+<li>ERM generalizes MLE by replacing log-loss with any loss function
+<ul>
+<li><span class="math inline">\(L(\theta) = {1 \over N} \sum l(y, x, \theta)\)</span></li>
+<li>Loss could be miss-classification rate as an example</li>
+</ul></li>
+<li>Surrogate losses devised to make optimization easier.
+<ul>
+<li>Log-Loss, Hinge-Loss etc.</li>
+</ul></li>
+<li>Method of Moments (MoM) compares theoretical moments of a distribution with to the empirical ones.
+<ul>
+<li>Moments are quantitative measures related to the shape of the function’s graph</li>
+</ul></li>
+<li>In batch learning, entire dataset is available before training.</li>
+<li>In online learning, dataset arrives sequentially.
+<ul>
+<li><span class="math inline">\(\theta_t = f(x_t, \theta_{t-1})\)</span></li>
+<li>Recursive updates are required. For example MA, or EWMA
+<ul>
+<li><span class="math inline">\(\mu_t = \mu_{t-1} + {1 \over t}(x_t - \mu_{t-1})\)</span></li>
+<li><span class="math inline">\(\mu_t = \beta \mu_{t-1} + (1 - \beta) y_t\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Regularization</strong></p>
+<ul>
+<li>MLE/ERM picks parameters that minimize loss on training set.</li>
+<li>Empirical distribution may not be same as true distribution.</li>
+<li>Model may not generalize well. Loss on unseen data points could be high. Overfitting.</li>
+<li>Regularization helps reduce overfitting by adding a penalty on complexity.
+<ul>
+<li>In-built in MAP estimation</li>
+<li><span class="math inline">\(L(\theta) = NLL + \lambda \log p(\theta)\)</span></li>
+<li>Add-one smoothing in Bernoulli to solve zero count problem is regularization.</li>
+<li>The extra one term comes from Beta priors.</li>
+</ul></li>
+<li>In linear regression, assume parameters from standard gaussian.
+<ul>
+<li><span class="math inline">\(L(\theta) = NLL + \lambda \log w^2\)</span></li>
+<li>L2 Penalty in MAP estimation</li>
+</ul></li>
+<li>Regularization strength is picked by looking at validation dataset
+<ul>
+<li>Validation risk is estimate for population risk.</li>
+<li>Cross-Validation in case of small size of training dataset</li>
+</ul></li>
+<li>One Standard Error Rule
+<ul>
+<li>Select the model with loss within one SE of the baseline / simple model</li>
+</ul></li>
+<li>Early Stopping prevents too many steps away from priors. Model doesn’t memorize too much.</li>
+<li>Using more suitable informative data samples also prevents overfitting.
+<ul>
+<li>Bayes’ Error is inherent error due to stochasticity.</li>
+<li>With more data, learning curve approaches Bayes’ Error.</li>
+<li>If we start with very few observations, adding more data may increase the error as model uncovers new data patterns.</li>
+</ul></li>
+</ul>
+<p><strong>Bayesian Statistics</strong></p>
+<ul>
+<li>Start with prior distribution</li>
+<li>Likelihood reflects the data for each setting of the prior</li>
+<li>Marginal Likelihood shows the average probability of the data by marginalizing over model parameters</li>
+<li>Posterior Predictive Distribution: is Bayes Model Averaging
+<ul>
+<li><span class="math inline">\(p(y | x, D) = \int p(y | x, \theta) p(\theta | D) d\theta\)</span></li>
+<li>Multiple parameter values considered, prevents overfitting</li>
+<li>Plug-in Approximation: Uses dirac delta to pul all the weight on MLE</li>
+<li>This simplifies the calculations</li>
+</ul></li>
+<li>Conjugate Priors
+<ul>
+<li>posterior = prior x likelihood</li>
+<li>Select prior in a form that posterior is closed form and has same family as prior</li>
+<li>Bernoulli-Beta</li>
+<li>Gaussian-Gaussian</li>
+</ul></li>
+</ul>
+<p><strong>Frequentist Statistics</strong></p>
+<ul>
+<li>Data is a random sample drawn from some underlying distribution</li>
+<li>Induces a distribution over the test statistic calculated from the sample.</li>
+<li>Estimate variation across repeated trials.</li>
+<li>Uncertainty is calculated by quantifying how the estimate would change if the data was sampled again.</li>
+<li>Sampling Distribution
+<ul>
+<li>Distribution of results if the estimator is applied multiple times to different datasets sampled from same distribution</li>
+</ul></li>
+<li>Bootstrap
+<ul>
+<li>If the underlying distribution is complex, approximate it by a Monte-Carlo technique</li>
+<li>Sample N data points from original dataset of size N with replacement</li>
+<li>Bootstrap Sample is 0.633 x N on average
+<ul>
+<li>Probability the point is selected atleast once</li>
+<li><span class="math inline">\(1 - (1 - {1 \over N})^N \approx 1 - {1 \over e}\)</span></li>
+</ul></li>
+</ul></li>
+<li>100 (1 - a) % CI is the probability that the true value of the parameter lies in the range.</li>
+</ul>
+<p><strong>Bias-Variance Tradeoff</strong></p>
+<ul>
+<li>Bias of an estimator
+<ul>
+<li><span class="math inline">\(bias(\hat \theta) = E[\hat \theta] - \theta^*\)</span>
+<ul>
+<li>Measures how much the estimate will differ from true value</li>
+<li>Sample variance is not an unbiased estimator for variance</li>
+</ul></li>
+<li><span class="math inline">\(\mathbf V[\hat \theta] = E[\hat \theta ^ 2] - E[\hat \theta]^2\)</span>
+<ul>
+<li>Measures how much will the estimate vary is data is resampled</li>
+</ul></li>
+<li>Mean Squared Error
+<ul>
+<li><span class="math inline">\(E[(\hat \theta - \theta^*)^2] = \text{bias}^2 + \text{variance}\)</span></li>
+<li>It’s okay to use a biased estimator if the bias is offset by decrease in variance.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="probability-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="decision-theory.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

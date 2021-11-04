@@ -1,0 +1,16 @@
+about
+introduction
+probability
+probability-1
+statistics
+decision-theory
+information-theory
+optimization
+discriminant-analysis
+logistic-regression
+linear-regression
+feed-forward-nn
+convolution-nn
+recurrent-nn
+exemplar-methods
+trees

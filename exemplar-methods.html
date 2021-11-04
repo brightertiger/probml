@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 15 Exemplar Methods | Notes on ProbML</title>
+  <meta name="description" content=" 15 Exemplar Methods | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 15 Exemplar Methods | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 15 Exemplar Methods | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="recurrent-nn.html"/>
+<link rel="next" href="trees.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exemplar-methods" class="section level1" number="15">
+<h1><span class="header-section-number"> 15</span> Exemplar Methods</h1>
+<ul>
+<li>Non-parametric Models
+<ul>
+<li>Keep the training data around</li>
+<li>Effective number of model parameters grow with |D|</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Instance-based Learning
+<ul>
+<li>Models keep training examples around test time</li>
+<li>Define similarity between training points and test input</li>
+<li>Assign the label based on the similarity</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>KNN
+<ul>
+<li>Classify the ew input based on K closest examples in the training set</li>
+<li><span class="math inline">\(p(y = c | x, D) = {1 \over K} \sum I\{y=c\}\)</span></li>
+<li>The closest point can be computed using Mahalanobis Distance</li>
+<li><span class="math inline">\(d_M(x,\mu) = \sqrt{(x-\mu)^TM(x-\mu)}\)</span></li>
+<li>M is positive definite matrix</li>
+<li>If M = I, then distance reduces to Euclidean matrix</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Curse of Dimensionality
+<ul>
+<li>Space volume grows exponentially with increase in dimension
+<ul>
+<li>Suppose inputs are uniformly distributed</li>
+<li>As we move from square to cube, 10% edge covers less region</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Speed and Memory Requirements
+<ul>
+<li>Finding K nearest neighbors slow</li>
+<li>KD Tree / LSH to speed up approximate neighbor calculation
+<ul>
+<li>KD Tree:
+<ul>
+<li>K dimensional binary search tree</li>
+</ul></li>
+<li>LSH: Similar objects go to same hash bucket
+<ul>
+<li>Shingling, Minhash, LSH</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Open Set recognition
+<ul>
+<li>New classes appear at test time
+<ul>
+<li>Person Re-identification</li>
+<li>Novelty Detection</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Learning Distance Matrix
+<ul>
+<li>Treat M is the distance matrix as a parameter</li>
+<li>Large Margin Nearest Neighbors</li>
+<li>Find M such that
+<ul>
+<li><span class="math inline">\(M = W^T W\)</span> (Positive Definite)</li>
+<li>Similar points have minimum distance</li>
+<li>Dissimilar points are at least m units away (margin)</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Deep Metric Learning
+<ul>
+<li>Reduce the curse of dimensionality</li>
+<li>Project he input from high dimension space to lower dimension via embedding</li>
+<li>Normalize the embedding</li>
+<li>Compute the distance
+<ul>
+<li>Euclidean or Cosine, both are related</li>
+<li><span class="math inline">\(|e_1 - e_2|^2 = |e1|^2 + |e_2|^2 - 2e_1 e_2\)</span></li>
+<li>Euclidean = 2 ( 1 - Cosine)</li>
+<li><span class="math inline">\(\cos \theta = {a \dot b \over ||a|| ||b||}\)</span></li>
+<li>Derivation via trigonometry
+<ul>
+<li><span class="math inline">\(\ cos \theta = a^2 + b ^ 2 - c^2 / 2 a b\)</span></li>
+</ul></li>
+</ul></li>
+<li>Learn an embedding function such that similar examples are close and dissimar examples are far</li>
+<li>Loss functions:
+<ul>
+<li>Classification Losses
+<ul>
+<li>Only learn to push examples on correct side of the decision boundary</li>
+</ul></li>
+<li>Pairwise Loss
+<ul>
+<li>Simaese Neural Network</li>
+<li>Common Backbone to embed the inputs</li>
+<li><span class="math inline">\(L(\theta, x_i, x_j) = I \{y_i =y_j\} d(x_i, x_j) + I \{y_i \ne y_j\} [m - d(x_i, x_j)]_+\)</span></li>
+<li>If same class, minimize the distance</li>
+<li>If different class, maximize the distance with m margin (Hinge Loss)</li>
+</ul></li>
+<li>Triplet Loss
+<ul>
+<li>In Pairwise Loss: positive and negative examples siloed</li>
+<li><span class="math inline">\(L(\theta, x_i, x^+, x^-) = [m + d(x_i, x_+) - d(x_i, x_-)]_+\)</span></li>
+<li>Minimize the distance between anchor and positive</li>
+<li>Maximize the distance between anchor and negative</li>
+<li>m is the safety margin</li>
+<li>Need to mine hard negative examples that are close to the positive pairs</li>
+<li>Computationally slow</li>
+<li>Use proxies to represent each class and speed up the training</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Kernel Density Estimation
+<ul>
+<li>Density Kernel
+<ul>
+<li>Domain: R</li>
+<li>Range: R+</li>
+<li><span class="math inline">\(\int K(x)dx = 1\)</span></li>
+<li><span class="math inline">\(K(-x) = K(x)\)</span></li>
+<li><span class="math inline">\(\int x K(x-x_n) dx = x_n\)</span></li>
+</ul></li>
+<li>Gaussian Kernel
+<ul>
+<li><span class="math inline">\(K(x) = {1 \over \sqrt{2\pi}} \exp(-{1\over2}x^2)\)</span></li>
+<li>RBF: Generalization to vector valued inputs</li>
+</ul></li>
+<li>Bandwitdth
+<ul>
+<li>Parameter to control the width of the kernel</li>
+</ul></li>
+<li>Density Estimation
+<ul>
+<li>Extend the concept of Gaussian Mixture models to the extreme</li>
+<li>Each point acts as an individual cluster
+<ul>
+<li>Mean <span class="math inline">\(x_n\)</span></li>
+<li>Constant variance</li>
+<li>No covariance</li>
+<li>Var-Cov matrix is <span class="math inline">\(\sigma^2 I\)</span></li>
+<li><span class="math inline">\(p(x|D) = {1 \over N}\sum K_h(x - x_n)\)</span></li>
+<li>No model fitting is required</li>
+</ul></li>
+</ul></li>
+<li>KDE vs KNN
+<ul>
+<li>KDE and KNN are closely related</li>
+<li>Essentially, in KNN we grow the volume around a point till we encounter K neighbors.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="recurrent-nn.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trees.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

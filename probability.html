@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 Probability | Notes on ProbML</title>
+  <meta name="description" content=" 3 Probability | Notes on ProbML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 Probability | Notes on ProbML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 Probability | Notes on ProbML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2021-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="probability-1.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Notes on ProbML</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>3</b> Probability</a></li>
+<li class="chapter" data-level="4" data-path="probability-1.html"><a href="probability-1.html"><i class="fa fa-check"></i><b>4</b> Probability</a></li>
+<li class="chapter" data-level="5" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>5</b> Statistics</a></li>
+<li class="chapter" data-level="6" data-path="decision-theory.html"><a href="decision-theory.html"><i class="fa fa-check"></i><b>6</b> Decision Theory</a></li>
+<li class="chapter" data-level="7" data-path="information-theory.html"><a href="information-theory.html"><i class="fa fa-check"></i><b>7</b> Information Theory</a></li>
+<li class="chapter" data-level="8" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>8</b> Optimization</a></li>
+<li class="chapter" data-level="9" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>9</b> Discriminant Analysis</a></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>11</b> Linear Regression</a></li>
+<li class="chapter" data-level="12" data-path="feed-forward-nn.html"><a href="feed-forward-nn.html"><i class="fa fa-check"></i><b>12</b> Feed Forward NN</a></li>
+<li class="chapter" data-level="13" data-path="convolution-nn.html"><a href="convolution-nn.html"><i class="fa fa-check"></i><b>13</b> Convolution NN</a></li>
+<li class="chapter" data-level="14" data-path="recurrent-nn.html"><a href="recurrent-nn.html"><i class="fa fa-check"></i><b>14</b> Recurrent NN</a></li>
+<li class="chapter" data-level="15" data-path="exemplar-methods.html"><a href="exemplar-methods.html"><i class="fa fa-check"></i><b>15</b> Exemplar Methods</a></li>
+<li class="chapter" data-level="16" data-path="trees.html"><a href="trees.html"><i class="fa fa-check"></i><b>16</b> Trees</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ProbML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probability" class="section level1" number="3">
+<h1><span class="header-section-number"> 3</span> Probability</h1>
+<p><strong>Definitions</strong></p>
+<ul>
+<li>Frequentist View: Long run frequencies of events that can happen multiple times</li>
+<li>Bayesian View: Quantify the uncertainty
+<ul>
+<li>Model Uncertainty: Ignorance of underlying process</li>
+<li>Data Uncertainty: Stochasticity</li>
+<li>Data uncertainty can’t be reduced with more data</li>
+</ul></li>
+<li>Event: Some state of the world (A) that either holds or doesn’t hold.
+<ul>
+<li><span class="math inline">\(0 \le P(A) \le 1\)</span></li>
+<li><span class="math inline">\(P(A) + P(\bar A) = 1\)</span></li>
+</ul></li>
+<li>Joint Probability: If two events happen simultaneously
+<ul>
+<li><span class="math inline">\(P(A,B)\)</span></li>
+<li>If A and B are independent: <span class="math inline">\(P(A,B) = P(A)P(B)\)</span></li>
+<li><span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span></li>
+</ul></li>
+<li>Conditional Probability: Event B happens given A has already happened
+<ul>
+<li><span class="math inline">\(P(A | B) = P(A \cap B) | P(A)\)</span></li>
+</ul></li>
+<li>A random variable represents unknown quantity of interest whose value cannot be determined.</li>
+<li>Sample space denotes the set of possible values of a random variable.</li>
+<li>Event is a set of outcomes from a given sample space.
+<ul>
+<li>If the sample is finite or countably finite, it’s discrete random variable</li>
+<li>If the sample space is real valued, it’s continuous random variable</li>
+</ul></li>
+<li>Probability Mass Function computes the probability of events of a given random variable
+<ul>
+<li><span class="math inline">\(0 \le p(x) \le 1\)</span></li>
+<li><span class="math inline">\(\sum_x p(x) = 1\)</span></li>
+</ul></li>
+<li>Cumulative Distribution Function are monotonically non-decreasing functions.
+<ul>
+<li><span class="math inline">\(\text{CDF}(x) = P(X \le x)\)</span></li>
+<li><span class="math inline">\(P(A \le X \le B) = \text{CDF}(B) - \text{CDF}(A)\)</span></li>
+</ul></li>
+<li>Probability Density Function is the derivative of CDF</li>
+<li>Inverse CDF or Quantile Function
+<ul>
+<li><span class="math inline">\(P^{-1}(0.5)\)</span> is the median</li>
+<li><span class="math inline">\(P^{-1}(0.25); P^{-1}(0.75)\)</span> are lower and upper quartiles</li>
+</ul></li>
+<li>Marginal Distribution of an random variable
+<ul>
+<li><span class="math inline">\(p(X=x) = \sum_y p(X=x, Y=y)\)</span></li>
+</ul></li>
+<li>Conditional Distribution of a Random Variable
+<ul>
+<li><span class="math inline">\(p(Y=y | X=x) = {p(Y=y, X=x) \over p(X=x)}\)</span></li>
+</ul></li>
+<li>Product Rule
+<ul>
+<li><span class="math inline">\(p(x,y) = p(y|x)p(x) = p(x|y) p(y)\)</span></li>
+</ul></li>
+<li>Chain Rule
+<ul>
+<li><span class="math inline">\(p(x1,x2,x3) = p(x1) p(x2 | x1) p(x3 | x1, x2)\)</span></li>
+</ul></li>
+<li>X and Y are independent
+<ul>
+<li><span class="math inline">\(X \perp Y \Rightarrow p(X,Y) = p(X) p(Y)\)</span></li>
+</ul></li>
+<li>X and Y are conditionally independent of Z
+<ul>
+<li><span class="math inline">\(X \perp Y | Z \Rightarrow p(X,Y | Z) = p(X|Z) p(Y | Z)\)</span></li>
+</ul></li>
+</ul>
+<p><strong>Moments of a Distribution</strong></p>
+<ul>
+<li>Mean or Expected Value
+<ul>
+<li>First moment around origin</li>
+<li><span class="math inline">\(\mathbf E(X) = \sum xp(x) \; \text{OR} \; \int_x xp(x) dx\)</span></li>
+<li>Linearity of Expectation: <span class="math inline">\(\mathbf E(aX + b) = a \mathbf E(X) + b\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Variance of a distribution
+<ul>
+<li>Second moment around mean</li>
+<li><span class="math inline">\(\mathbf E(X-\mu)^2 = \sigma^2\)</span></li>
+<li><span class="math inline">\(\text{Var}(aX + b) = a^2 Var(X)\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Mode of a distribution
+<ul>
+<li>Value with highest probability mass or probability density</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Law of Total / Iterated Expectation
+<ul>
+<li><span class="math inline">\(E(X) = E(E(X|Y))\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Law of Total Variance
+<ul>
+<li><span class="math inline">\(V(X) = E(V(X | Y)) + V(E(X | Y))\)</span></li>
+</ul></li>
+</ul>
+<p><strong>Bayes’ Rule</strong></p>
+<ul>
+<li>Compute probability distribution over some unknown quantity H given observed data Y</li>
+<li><span class="math inline">\(P(H | Y) = {P(Y |H) P(H) \over P(Y)}\)</span></li>
+<li>Follows from product rule</li>
+<li>p(H) is the prior distribution</li>
+<li>p(Y | H) is the observation distribution</li>
+<li>p(Y=y | H=h) is the likelihood</li>
+<li>Bayesian Inference: <span class="math inline">\(\text{posterior} \propto \text{prior} \times \text{likelihood}\)</span></li>
+</ul>
+<p><strong>Distributions</strong></p>
+<ul>
+<li>Bernoulli and Binomial Distribution
+<ul>
+<li>Describes a binary outcome</li>
+<li><span class="math inline">\(Y \sim Ber(\theta)\)</span></li>
+<li><span class="math inline">\(Y = \theta^y (1 - \theta)^{1-y}\)</span></li>
+<li>Binomial distribution is N repeatitions of Bernoulli trials</li>
+<li><span class="math inline">\(Bin(p | N,\theta) = {N \choose p} \theta^p (1 - \theta)^{1-p}\)</span></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Logistic Distribution
+<ul>
+<li>If we model a binary outcome using ML model, the range of f(X) is [0,1]</li>
+<li>To avoid this constraint, use logistic function: <span class="math inline">\(\sigma(a) = {1 \over 1 + e^{-a}}\)</span></li>
+<li>The quantity a is log-odds: log(p | 1-p)</li>
+<li>Logistic function maps log-odds to probability</li>
+<li><span class="math inline">\(p(y=1|x, \theta) = \sigma(f(x, \theta))\)</span></li>
+<li><span class="math inline">\(p(y=0|x, \theta) = \sigma( - f(x, \theta))\)</span></li>
+<li>Binary Logistic Regression: <span class="math inline">\(p(y|x, \theta) = \sigma(wX +b)\)</span></li>
+<li>Decision boundary: <span class="math inline">\(p(y|x, \theta) = 0.5\)</span></li>
+<li>As we move away from decision boundary, model becomes more confident about the label</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Categorical Distribution
+<ul>
+<li>Generalizes Bernoulli to more than two classes</li>
+<li><span class="math inline">\(\text{Cat}(y | \theta) = \prod \theta_c ^ {I(y=C)} \Rightarrow p(y = c | \theta) = \theta_c\)</span></li>
+<li>Categorical distribution is a special case of multinomial distribution. It drops the multinomial coefficient.</li>
+<li>The categorical distribution needs to satisfy
+<ul>
+<li><span class="math inline">\(0 \le f(X, \theta) \le 1\)</span></li>
+<li><span class="math inline">\(\sum f(X, \theta) = 1\)</span></li>
+</ul></li>
+<li>To avoid these constraints, its common to pass the raw logit values to a softmax function
+<ul>
+<li><span class="math inline">\({e^x_1 \over \sum e^x_i} , {e^x_2 \over \sum e^x_i}....\)</span></li>
+</ul></li>
+<li>Softmax function is “soft-argmax”
+<ul>
+<li>Divide the raw logits by a constant T (temperature)</li>
+<li>If T → 0 all the mass is concentrated at the most probable state, winner takes all</li>
+</ul></li>
+<li>If we use categorical distribution for binary case, the model is over-parameterized.
+<ul>
+<li><span class="math inline">\(p(y = 0 | x) = {e^{a_0} \over e^{a_0} + e^{a_1}} = \sigma(a_0 - a_1)\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Log-Sum-Exp Trick
+<ul>
+<li>If the raw logit values grow large, the denominator of softmax can enounter numerical overflow.</li>
+<li>To avoid this:
+<ul>
+<li><span class="math inline">\(\log \sum \exp(a_c) = m + \log \sum \exp(a_c - m)\)</span></li>
+<li>if m is arg max over a, then we wont encounter overflow.</li>
+</ul></li>
+<li>LSE trick is used in stable cross-entropy calculation by transforming the sigmoid function to LSE(0,-a).</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Gaussian Distribution
+<ul>
+<li>CDF of Gaussian is defined as
+<ul>
+<li><span class="math inline">\(\Phi(y; \mu, \sigma^2) = {1 \over 2} [ 1 + \text{erf}({z \over \sqrt(2)})]\)</span></li>
+<li>erf is the error function</li>
+</ul></li>
+<li>The inverse of the CDF is called the probit function.</li>
+<li>The derivative of the CFD gives the pdf of normal distribution</li>
+<li>Mean, Median and Mode of gaussian is <span class="math inline">\(\mu\)</span></li>
+<li>Variance of Gaussian is <span class="math inline">\(\sigma\)</span></li>
+<li>Linear Regression uses conditional gaussian distribution
+<ul>
+<li><span class="math inline">\(p(y | x, \theta) = \mathcal N(y | f_\mu(x, \theta); f_\sigma(x, \theta))\)</span></li>
+<li>if variance does not depend on x, the model is homoscedastic.</li>
+</ul></li>
+<li>Gaussian Distribution is widely used because:
+<ul>
+<li>parameters are easy to interpret</li>
+<li>makes least number of assumption, has maximum entropy</li>
+<li>central limit theorem: sum of independent random variables are approximately gaussian</li>
+</ul></li>
+<li>Dirac Delta function puts all the mass at the mean. As variance approaches 0, gaussian turns into dirac delta.</li>
+<li>Gaussian distribution is sensitive to outliers. A robust alternative is t-distribution.
+<ul>
+<li>PDF decays as polynomial function of distance from mean.</li>
+<li>It has heavy tails i.e. more mass</li>
+<li>Mean and mode is same as gaussian.</li>
+<li>Variance is <span class="math inline">\(\nu \sigma^2 \over \nu -2\)</span></li>
+<li>As degrees of freedom increase, the distribution approaches gaussian.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Exponential distribution describes times between events in Poisson process.</li>
+<li>Chi-Squared Distribution is sum-squares of Gaussian Random Variables.</li>
+</ul>
+<p><strong>Transformations</strong></p>
+<ul>
+<li>Assume we have a deterministic mapping y = f(x)</li>
+<li>In discrete case, we can derive the PMF of y by summing over all x</li>
+<li>In continuous case:
+<ul>
+<li><span class="math inline">\(P_y(y) = P(Y \le y) = P(f(X) \le y) = P(X \le f^{-1}(y)) = P_x(f^{-1}(y))\)</span></li>
+<li>Taking derivatives of the equation above gives the result.</li>
+<li><span class="math inline">\(p_y(y) = p_x(x)|{dy \over dx}|\)</span></li>
+<li>In multivariate case, the derivative is replaced by Jacobian.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Convolution Theorem
+<ul>
+<li>y = x1 + x2</li>
+<li><span class="math inline">\(P(y \le y^*) = \int_{-\infty}^{\infty}p_{x_1}(x_1) dx_1 \int_{-\infty}^{y^* - x1}p_{x_2}(x_2)dx_2\)</span></li>
+<li>Differentiating under integral sign gives the convolution operator</li>
+<li><span class="math inline">\(p(y) = \int p_1(x_1) p_2(y - x_1) dx_1\)</span></li>
+<li>In case x1 and x2 are gaussian, the resulting pdf from convolution operator is also gaussian. → sum of gaussians results in gaussian (reproducibility)</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Central Limit Theorem
+<ul>
+<li>Suppose there are N random variables that are independently identically distributed.</li>
+<li>As N increases, the distribution of this sum approaches Gaussian with:
+<ul>
+<li>Mean as Sample Mean</li>
+<li>Variance as Sample Variance</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<ul>
+<li>Monte-Carlo Approximation
+<ul>
+<li>It’s often difficult ti compute the pdf of transformation y = f(x).</li>
+<li>Alternative:
+<ul>
+<li>Draw a large number of samples from x</li>
+<li>Use the samples to approximate y</li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="probability-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

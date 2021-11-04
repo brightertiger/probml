@@ -1,0 +1,24 @@
+--- 
+title: "Notes on ProbML"
+author: "brightertiger"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+
+---
+
+# About
+
+- Hi I am brightertiger! I am a data scientist looking to expand my knowledge about ML.
+
+- This is a collection of _notes_ based on my reading of the book _Probabilistic Machine Learning: An Introduction_ by _Kevin P Murphy_. The draft copy of this book can be downloaded from [here](https://probml.github.io/pml-book/book1.html).
+
+
+
+
+
+
+
